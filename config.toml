@@ -8,6 +8,7 @@ theme = "spectre-pixel"
 
 # Enter your tracking code to enable Google Analytics
 googleAnalytics = ""
+publishDir = "WindChimeRan.github.io"
 
 [params]
   name = "Haoran Zhang"
