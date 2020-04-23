@@ -10,7 +10,7 @@ redirect_from:
 
 I am a first-year master's student at UIUC. My research interest is relation extraction in natural language processing and I'm currently a member of [BLENDER Lab](http://blender.cs.illinois.edu/), advising by Professor Heng Ji. Prior to joining BLENDER at UIUC, I graduated from CSUST, supervised by Dr. Zeng.
 
-Download my CV [here](https://github.com/WindChimeRan/WindChimeRan.github.io/blob/master/files/haoran_resume.pdf)
+Download my CV [here](https://windchimeran.github.io/files/haoran_resume.pdf)
 
 
 ## Publication
@@ -21,7 +21,7 @@ Download my CV [here](https://github.com/WindChimeRan/WindChimeRan.github.io/blo
 
 **University of Illinois Urbana-Champaign**
 
-MS in Information Management,                2019 - present
+MS in Information Management, 2019 - present
 
 Advisor: Heng Ji
 
@@ -30,7 +30,7 @@ Advisor: Heng Ji
 
 **Changsha University of Science and Technology**
 
-BS in Computer Science,       2014 - 2018
+BS in Computer Science, 2014 - 2018
 
 Advisor: Daojian Zeng
 
