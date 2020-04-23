@@ -8,7 +8,7 @@ redirect_from:
   - /about.html
 ---
 
-I am a first-year master's student at UIUC. My research interest is relation extraction in natural language processing and I'm currently a member of [BLENDER Lab](http://blender.cs.illinois.edu/), advising by Professor Heng Ji. Prior to joining BLENDER at UIUC, I graduated from CSUST, supervised by Dr. Zeng.
+I am a first-year master's student at UIUC. My research interest is relation extraction in natural language processing and I'm currently a member of [BLENDER Lab](http://blender.cs.illinois.edu/), advised by Professor Heng Ji. Prior to joining BLENDER at UIUC, I graduated from CSUST, supervised by Dr. Zeng.
 
 Download my CV [here](https://windchimeran.github.io/files/haoran_resume.pdf)
 
