@@ -82,7 +82,7 @@ analytics:
 author:
   name             : "Haoran Zhang"
   avatar           : "photo.JPG"
-  bio              : "Master student, School of Information Science, University of Illinois Urbana-Champaign"
+  bio              : "Master student, \n School of Information Science, \n University of Illinois Urbana-Champaign"
   location         : 
   employer         :
   # pubmed           : "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
@@ -209,15 +209,6 @@ defaults:
     values:
       layout: single
       author_profile: true
-  # _teaching
-  - scope:
-      path: ""
-      type: teaching
-    values:
-      layout: single
-      author_profile: true
-      share: true
-      comments: true
   # _publications
   - scope:
       path: ""
