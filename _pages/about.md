@@ -18,14 +18,14 @@ I am a first-year master's student at UIUC. My research interest is relation ext
 
 **University of Illinois Urbana-Champaign**
 
-MS in Information Management \ \ \ 2019 - present
+MS in Information Management &nbsp &nbsp &nbsp 2019 - present
 
 Advisor: Heng Ji
 
 
 **Changsha University of Science and Technology**
 
-BS in Computer Science \ \ \ 2014 - 2018
+BS in Computer Science &nbsp &nbsp &nbsp 2014 - 2018
 
 Advisor: Daojian Zeng
 
