@@ -20,7 +20,7 @@ Download my CV [here](https://windchimeran.github.io/files/haoran_resume.pdf)
 
 <!-- - Zeng D\*., **Zhang H**\*., Liu Q. (2020) CopyMTL: Multi-task Copy Mechanism for Joint Extraction of Entities and Relations. The Thirty-Fourth AAAI Conference on Artificial Intelligence. AAAI, 2020. [paper](https://arxiv.org/pdf/1911.10438.pdf) [code](https://github.com/WindChimeRan/CopyMTL) -->
 
-- <u>Ranran Haoran Zhang</u>\*, Qianying Liu\*, Aysa Xuemo Fan, Heng Ji, Daojian Zeng, Fei Cheng, Daisuke Kawahara, Sadao Kurohashi, **Minimize Exposure Bias of Seq2Seq Models in Joint Entity and Relation Extraction**. EMNLP2020 Findings.
+- <u>Ranran Haoran Zhang</u>\*, Qianying Liu\*, Aysa Xuemo Fan, Heng Ji, Daojian Zeng, Fei Cheng, Daisuke Kawahara, Sadao Kurohashi, **Minimize Exposure Bias of Seq2Seq Models in Joint Entity and Relation Extraction**. EMNLP2020 Findings. Preprint [here](https://arxiv.org/pdf/2009.07503.pdf).
 
 - Qingyun Wang, Manling Li, Xuan Wang, Nikolaus Parulian, Guangxing Han, Jiawei Ma, Jingxuan Tu, Ying Lin, <u>Ranran Haoran Zhang</u>, Weili Liu, Aabhas Chauhan, Yingjun Guan, Bangzheng Li, Ruisong Li, Xiangchen Song, Heng Ji, Jiawei Han, Shih-Fu Chang, James Pustejovsky, David Liem, Ahmed Elsayed, Martha Palmer, Jasmine Rah, Cynthia Schneider, Boyan Onyshkevych. **COVID-19 Literature Knowledge Graph Construction and Drug Repurposing Report Generation**. Preprint [here](https://arxiv.org/pdf/2007.00576.pdf).
 
