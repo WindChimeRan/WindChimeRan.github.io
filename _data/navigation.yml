@@ -3,6 +3,8 @@ main:
   - title: "Publications"
     url: /publications/
 
+    - title: "Software"
+    url: /software/
   # - title: "Blog Posts"
   #   url: /year-archive/
     
