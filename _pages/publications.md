@@ -17,7 +17,7 @@ author_profile: true
 
 <!-- # Publications -->
 
-\* means equal contribution.
+(\* refers to equal contribution)
 
 ## 2020
 
