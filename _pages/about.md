@@ -22,7 +22,7 @@ Download my CV [here](https://windchimeran.github.io/files/cv.pdf)
 
 - **Joint Extraction of Entities and Relations (JERE)**
 
-    JERE task is to extract entity-relation triplets from the plain text, usually in a supervised setting, e.g., 
+  JERE task is to extract entity-relation triplets from the plain text, usually in a supervised setting, e.g., 
     > Obama graduated from Columbia Unversity and Harvard Law School, and he was the president of the Harvard Law Review.
     ->
     > [(Obama, graduate_from, Columbia Unversity), (Obama, graduate_from, Harvard Law School), (Obama, president_of, Harvard Law Review)]
@@ -31,6 +31,7 @@ Download my CV [here](https://windchimeran.github.io/files/cv.pdf)
   When reproducing the CopyRE on the NYT dataset, we noticed the model weiredly relied on a mask for entity extraction:
   - With mask: F1 scores is as expected.
   - Without mask: F1 scores is down to 0.
+  
   We then dug into the codes and equations and found a linear-algebra mistake hidden behind the codes ... We solved it and created a new system called [CopyMTL](https://arxiv.org/pdf/1911.10438.pdf), which was accepted by **AAAI 2020**.
 
   1. We deployed CopyMTL to a large-scale JERE dataset, DuIE. However, CopyMTL got a very low score (CopyMTL = 40+, others = 70+). We dug deeper into the root by doing error analysis on the outputs, and found that the performance decreased while the number of triplets per sentence increased. After ruling out other possible explanations, we thought of the notorious exposure bias problem in machine translation, which may be the culprit altering the extraction results. If the length of output sequence can be reduced, the effect of exposure bias can be mitigated ... Finally we solved it by turning the sequence to an Unordered-Multi-Tree, and built a new system, [Seq2UMTree](https://arxiv.org/pdf/2009.07503.pdf). This paper was accpepted by **Findings of EMNLP 2020**.
