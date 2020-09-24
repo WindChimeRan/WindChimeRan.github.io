@@ -22,7 +22,6 @@ Download my CV [here](https://windchimeran.github.io/files/haoran_resume.pdf)
     > [(Obama, graduate_from, Columbia Unversity), (Obama, graduate_from, Harvard Law School), (Obama, president_of, Harvard Law Review)]
     
     1. At first, we reproduce a machine-translation like baseline, [CopyRE](https://www.aclweb.org/anthology/P18-1047.pdf), which translates the sentence to triplets via Seq2Seq. CopyRE finds the entity by predicting the position in the original sentence, and the relation by predicting from a predefined set. 
-
     When reproducing the CopyRE on the NYT dataset, we found it weiredly relies on a mask for entity extraction:
     - with mask: F1 scores is as expected.
     - without mask: F1 scores is down to 0.
