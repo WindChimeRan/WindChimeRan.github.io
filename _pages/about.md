@@ -14,10 +14,17 @@ Download my CV [here](https://windchimeran.github.io/files/haoran_resume.pdf)
 
 ## Research Stories
 
-- **Joint Extraction of Entities and Relations**
+- **Joint Extraction of Entities and Relations (JERE)**
 
+    JERE task is to extract entity-relation triplets from the plain text, e.g., 
+
+    > Obama graduated from Columbia Unversity and Harvard Law School, and he was the president of the Harvard Law Review.
+
+    > [(Obama, graduate_from, Columbia Unversity), (Obama, graduate_from, Harvard Law School), (Obama, president_of, Harvard Law Review)]
+    
     emmm
 
+    
 <!-- ## Paper and Manuscript
 
 (\* refers to equal contribution) -->
