@@ -23,9 +23,9 @@ Download my CV [here](https://windchimeran.github.io/files/cv.pdf)
   <!-- ### Joint Extraction of Entities and Relations (JERE) -->
 
   Joint Extraction of Entities and Relations (JERE) task is to extract entity-relation triplets from the plain text, usually in a supervised setting, e.g., 
-  > Obama graduated from Columbia Unversity and Harvard Law School, and he was the president of the Harvard Law Review.
+  > Obama graduated from Columbia University and Harvard Law School, and he was the president of the Harvard Law Review.
   ->
-  > [(Obama, graduate_from, Columbia Unversity), (Obama, graduate_from, Harvard Law School), (Obama, president_of, Harvard Law Review)]
+  > [(Obama, graduate_from, Columbia University), (Obama, graduate_from, Harvard Law School), (Obama, president_of, Harvard Law Review)]
   
   At first, we reproduced a machine-translation-like baseline, [CopyRE](https://www.aclweb.org/anthology/P18-1047.pdf), which "translated" the sentence to triplets via Seq2Seq. CopyRE found an entity by predicting its position in the original sentence, and a relation by predicting from a predefined set. 
   When reproducing the CopyRE on the NYT dataset, we noticed the model weiredly relied on a mask for entity extraction:
