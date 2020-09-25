@@ -12,7 +12,7 @@ I am a second-year master's student in iSchool at UIUC. My research interests ar
 
 I have worked from home for over 2 years (well before COVID-19), so I'm pretty good at it. If you need help working from home, chat with me, maybe I can enlighten you.
 
-I like road trips and have ridden to 5 states the last summer. I'm color blinded but I paint, sometimes. I love cats (but have none) and mechanical keyboards (and have 3)!
+I like road trips and have ridden to 5 states the last summer. I'm color blind but I paint, sometimes. I love cats (but have none) and mechanical keyboards (and have 3)!
 
 <!-- , advised by Professor Heng Ji. Prior to joining BLENDER at UIUC, I received my bachelor’s degree in computer science at CSUST, where I was supervised by Dr. Zeng. -->
 
