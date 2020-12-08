@@ -16,7 +16,7 @@ I like road trips and have ridden to 5 states the last summer. I'm color blind b
 
 <!-- , advised by Professor Heng Ji. Prior to joining BLENDER at UIUC, I received my bachelor’s degree in computer science at CSUST, where I was supervised by Dr. Zeng. -->
 
-Download my CV [here](https://windchimeran.github.io/files/cv.pdf)
+Download my CV [here](https://windchimeran.github.io/files/cv2020.pdf)
 
 ## Research Stories
 
