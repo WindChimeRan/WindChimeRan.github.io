@@ -22,7 +22,6 @@ dependencies:
   - matplotlib=3.2.2
   - libpng
   - pandas
-  - ipywidgets
   - xlrd
   - contextily
   - python=3.7
@@ -31,4 +30,7 @@ dependencies:
   - pip
   - traitlets
   - seaborn
+  - pytrends
+  - ipywidgets
+  - bqplot
 prefix: /home/ran/anaconda3/envs/DataViz
