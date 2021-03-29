@@ -8,15 +8,23 @@ redirect_from:
   - /about.html
 ---
 
-I am a second-year master's student in iSchool at UIUC. My research interests are natural language processing and learning science. I'm currently a member of [BLENDER Lab](http://blender.cs.illinois.edu/) and working on relation extraction. 
+I am a second-year master's student in iSchool at UIUC. My research interests lie in natural language processing, especially in its improvement or its applications in computational social science and learning science. 
 
-I have worked from home for over 2 years (well before COVID-19), so I'm pretty good at it. If you need help working from home, chat with me, maybe I can enlighten you.
+I'm currently a member of [BLENDER Lab](http://blender.cs.illinois.edu/) and working on relation extraction. The projects I’ve worked on include fake news detection, news attribute verification, knowledge graph construction, event detection, etc.
 
-I like road trips and have ridden to 5 states the last summer. I'm color blind but I paint, sometimes. I love cats (but have none) and mechanical keyboards (and have 3)!
+
+Due to my severe health condition, I have worked from home for over 3 years since 2017 so I’m pretty good at it. If you need help with working from home, chat with me, maybe I can enlighten you. 
+
+
+After a long-term treatment, I have finally recovered and resumed my life. I’m now looking for an internship or a full-time job in machine learning, deep learning or similar fields. In the long run, I’m looking to join a PhD program in NLP or related fields. If you need someone to collaborate and think I can be a good fit, send me an email and I’d be happy to work with you!
+
+Fun facts about me: I like road trips and have travelled to 5 states the last summer. I’m color blind but I paint, sometimes. I love cats (but have none) and mechanical keyboards (and have 3)!
+
+
 
 <!-- , advised by Professor Heng Ji. Prior to joining BLENDER at UIUC, I received my bachelor’s degree in computer science at CSUST, where I was supervised by Dr. Zeng. -->
 
-Download my CV [here](https://windchimeran.github.io/files/cv2020.pdf)
+Download my CV [here](https://windchimeran.github.io/files/Haoran_Zhang_CV.pdf)
 
 ## Research Stories
 
