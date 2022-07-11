@@ -8,17 +8,24 @@ redirect_from:
   - /about.html
 ---
 
-I am a second-year master's student in iSchool at UIUC. My research interests lie in natural language processing, especially in its improvement or its applications in computational social science and learning science. 
+I am a first-year CS PhD student at Penn State University advised by Dr. [Rui Zhang](https://ryanzhumich.github.io/). My research interests lie in natural language processing. My research aims to build a universal framework that can **extract and deduce logical information from heterogeneous textual data**.
 
-I'm currently a member of [BLENDER Lab](http://blender.cs.illinois.edu/) and working on relation extraction. The projects I’ve worked on include fake news detection, news attribute verification, knowledge graph construction, event detection, etc.
+- Information Extraction
+- Executable Semantic Parsing
+- Indirect Supervision
+- Education x NLP
+
+<!-- its improvement or its applications in computational social science and learning science.  -->
+
+<!-- I'm currently a member of [BLENDER Lab](http://blender.cs.illinois.edu/) and working on relation extraction. The projects I’ve worked on include fake news detection, news attribute verification, knowledge graph construction, event detection, etc. -->
 
 
-Due to my severe health condition, I have worked from home for over 3 years since 2017 so I’m pretty good at it. If you need help with working from home, chat with me, maybe I can enlighten you. 
+<!-- Due to my severe health condition, I have worked from home for over 3 years since 2017 so I’m pretty good at it. If you need help with working from home, chat with me, maybe I can enlighten you.  -->
 
 
-After a long-term treatment, I have finally recovered and resumed my life. I’m now looking for an **internship** or a **full-time job** in machine learning, deep learning or similar fields. In the long run, I’m looking to join a **Ph.D. program** in NLP or related fields. If you need someone to collaborate and think I can be a good fit, send me an email and I’d be happy to work with you!
+<!-- After a long-term treatment, I have finally recovered and resumed my life. I’m now looking for an **internship** or a **full-time job** in machine learning, deep learning or similar fields. In the long run, I’m looking to join a **Ph.D. program** in NLP or related fields. If you need someone to collaborate and think I can be a good fit, send me an email and I’d be happy to work with you! -->
 
-Fun facts about me: I like road trips and have travelled to 5 states the last summer. I’m color blind but I paint, sometimes. I love cats (but have none) and mechanical keyboards (and have 3)!
+<!-- Fun facts about me: I like road trips and have travelled to 5 states the last summer. I’m color blind but I paint, sometimes. I love cats (but have none) and mechanical keyboards (and have 3)! -->
 
 
 
@@ -26,25 +33,25 @@ Fun facts about me: I like road trips and have travelled to 5 states the last su
 
 Download my CV [here](https://windchimeran.github.io/files/Haoran_Zhang_CV.pdf)
 
-## Research Stories
+<!-- ## Research Stories
 
   <!-- ### Joint Extraction of Entities and Relations (JERE) -->
 
-  Joint Extraction of Entities and Relations (JERE) task is to extract entity-relation triplets from the plain text, usually in a supervised setting, e.g., 
-  > Obama graduated from Columbia University and Harvard Law School, and he was the president of the Harvard Law Review.
+  <!-- Joint Extraction of Entities and Relations (JERE) task is to extract entity-relation triplets from the plain text, usually in a supervised setting, e.g.,  -->
+  <!-- > Obama graduated from Columbia University and Harvard Law School, and he was the president of the Harvard Law Review.
   ->
-  > [(Obama, graduate_from, Columbia University), (Obama, graduate_from, Harvard Law School), (Obama, president_of, Harvard Law Review)]
+  > [(Obama, graduate_from, Columbia University), (Obama, graduate_from, Harvard Law School), (Obama, president_of, Harvard Law Review)] -->
   
-  At first, we reproduced a machine-translation-like baseline, [CopyRE](https://www.aclweb.org/anthology/P18-1047.pdf), which "translated" the sentence to triplets via Seq2Seq. CopyRE found an entity by predicting its position in the original sentence, and a relation by predicting from a predefined set. 
+  <!-- At first, we reproduced a machine-translation-like baseline, [CopyRE](https://www.aclweb.org/anthology/P18-1047.pdf), which "translated" the sentence to triplets via Seq2Seq. CopyRE found an entity by predicting its position in the original sentence, and a relation by predicting from a predefined set. 
   When reproducing the CopyRE on the NYT dataset, we noticed the model weiredly relied on a mask for entity extraction:
   - With mask: F1 scores is as expected.
-  - Without mask: F1 scores is down to 0.
+  - Without mask: F1 scores is down to 0. -->
   
-  We then dug into the codes and equations and found a linear-algebra mistake hidden behind the codes ... We solved it and created a new system called [CopyMTL](https://arxiv.org/pdf/1911.10438.pdf), which was accepted by **AAAI 2020**.
+  <!-- We then dug into the codes and equations and found a linear-algebra mistake hidden behind the codes ... We solved it and created a new system called [CopyMTL](https://arxiv.org/pdf/1911.10438.pdf), which was accepted by **AAAI 2020**.
 
   We deployed CopyMTL to a large-scale JERE dataset, DuIE. However, CopyMTL got a very low score (CopyMTL = 40+, others = 70+). We dug deeper into the root by doing error analysis on the outputs, and found that the performance decreased while the number of triplets per sentence increased. After ruling out other possible explanations, we thought of the notorious exposure bias problem in machine translation, which may be the culprit altering the extraction results. If the length of output sequence can be reduced, the effect of exposure bias can be mitigated ... Finally we solved it by turning the sequence to an Unordered-Multi-Tree, and built a new system, [Seq2UMTree](https://arxiv.org/pdf/2009.07503.pdf). This paper was accpepted by **Findings of EMNLP 2020**.
 
-  Seq2UMTree is not perfect. We find that there are still some errors caused by the shortage of relations and linguistic patterns in the training set. We are working on building a better system and would love to chat about it. If you are interested, maybe we can have Zoom coffee!
+  Seq2UMTree is not perfect. We find that there are still some errors caused by the shortage of relations and linguistic patterns in the training set. We are working on building a better system and would love to chat about it. If you are interested, maybe we can have Zoom coffee! --> 
 
 
 
@@ -62,10 +69,16 @@ Download my CV [here](https://windchimeran.github.io/files/Haoran_Zhang_CV.pdf)
 with Multi-Task Learning**. AAAI, 2020. Retrieved from [here](https://arxiv.org/pdf/1911.10438.pdf). -->
 
 ## Education
+**Penn State University**
 
+*PhD in Computer Science, 2022  - Present*
+
+Advisor: Rui Zhang
+
+------
 **University of Illinois Urbana-Champaign**
 
-*MS in Information Management, 2019 - present*
+*MS in Information Management, 2019 - 2021*
 
 Advisor: Heng Ji
 
@@ -80,4 +93,4 @@ Advisor: Daojian Zeng
 
 ## Contact
 
-Email: haoranz6 [AT] illinois [DOT] edu
+Email: hzz5361 [AT] psu [DOT] edu

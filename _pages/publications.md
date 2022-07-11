@@ -21,7 +21,7 @@ author_profile: true
 
 ## 2021
 
-- [COVID-19 Literature Knowledge Graph Construction and Drug Repurposing Report Generation](https://arxiv.org/pdf/2007.00576.pdf). Qingyun Wang, Manling Li, Xuan Wang, Nikolaus Parulian, Guangxing Han, Jiawei Ma, Jingxuan Tu, Ying Lin, **<u>Ranran Haoran Zhang</u>**, Weili Liu, Aabhas Chauhan, Yingjun Guan, Bangzheng Li, Ruisong Li, Xiangchen Song, Heng Ji, Jiawei Han, Shih-Fu Chang, James Pustejovsky, David Liem, Ahmed Elsayed, Martha Palmer, Jasmine Rah, Clare Voss, Cynthia Schneider, Boyan Onyshkevych. **NAACL 2021 Demo**. [paper](https://arxiv.org/pdf/2007.00576.pdf) 
+- [COVID-19 Literature Knowledge Graph Construction and Drug Repurposing Report Generation](https://arxiv.org/pdf/2007.00576.pdf). Qingyun Wang, Manling Li, Xuan Wang, Nikolaus Parulian, Guangxing Han, Jiawei Ma, Jingxuan Tu, Ying Lin, **<u>Ranran Haoran Zhang</u>**, Weili Liu, Aabhas Chauhan, Yingjun Guan, Bangzheng Li, Ruisong Li, Xiangchen Song, Heng Ji, Jiawei Han, Shih-Fu Chang, James Pustejovsky, David Liem, Ahmed Elsayed, Martha Palmer, Jasmine Rah, Clare Voss, Cynthia Schneider, Boyan Onyshkevych. **Best Demo Paper Award at NAACL2021**. [paper](https://arxiv.org/pdf/2007.00576.pdf) 
 
 ## 2020
 
