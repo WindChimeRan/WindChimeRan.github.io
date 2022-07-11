@@ -82,8 +82,8 @@ analytics:
 author:
   name             : "Ranran Haoran Zhang"
   avatar           : "photo.jpeg"
-  bio              : "Master Student, iSchool, University of Illinois at Urbana-Champaign"
-  location         : 
+  bio              : "PhD Student, Penn State University"
+  location         : State College, PA
   employer         :
   # pubmed           : "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
   googlescholar    : "https://scholar.google.com/citations?user=3jNKbfwAAAAJ&hl=en&oi=sra"
@@ -103,7 +103,7 @@ author:
   impactstory      : #"https://profiles.impactstory.org/u/xxxx-xxxx-xxxx-xxxx"
   lastfm           :
   linkedin         :
-  # orcid            : "http://orcid.org/yourorcidurl"
+  orcid            : "http://orcid.org/0000-0002-1005-9757"
   pinterest        :
   soundcloud       :
   stackoverflow    : # http://stackoverflow.com/users/123456/username
