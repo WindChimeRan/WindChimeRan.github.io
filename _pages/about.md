@@ -33,26 +33,6 @@ I am a first-year CS PhD student at Penn State University advised by Dr. [Rui Zh
 
 Download my CV [here](https://windchimeran.github.io/files/Haoran_Zhang_CV.pdf)
 
-<!-- ## Research Stories
-
-  <!-- ### Joint Extraction of Entities and Relations (JERE) -->
-
-  <!-- Joint Extraction of Entities and Relations (JERE) task is to extract entity-relation triplets from the plain text, usually in a supervised setting, e.g.,  -->
-  <!-- > Obama graduated from Columbia University and Harvard Law School, and he was the president of the Harvard Law Review.
-  ->
-  > [(Obama, graduate_from, Columbia University), (Obama, graduate_from, Harvard Law School), (Obama, president_of, Harvard Law Review)] -->
-  
-  <!-- At first, we reproduced a machine-translation-like baseline, [CopyRE](https://www.aclweb.org/anthology/P18-1047.pdf), which "translated" the sentence to triplets via Seq2Seq. CopyRE found an entity by predicting its position in the original sentence, and a relation by predicting from a predefined set. 
-  When reproducing the CopyRE on the NYT dataset, we noticed the model weiredly relied on a mask for entity extraction:
-  - With mask: F1 scores is as expected.
-  - Without mask: F1 scores is down to 0. -->
-  
-  <!-- We then dug into the codes and equations and found a linear-algebra mistake hidden behind the codes ... We solved it and created a new system called [CopyMTL](https://arxiv.org/pdf/1911.10438.pdf), which was accepted by **AAAI 2020**.
-
-  We deployed CopyMTL to a large-scale JERE dataset, DuIE. However, CopyMTL got a very low score (CopyMTL = 40+, others = 70+). We dug deeper into the root by doing error analysis on the outputs, and found that the performance decreased while the number of triplets per sentence increased. After ruling out other possible explanations, we thought of the notorious exposure bias problem in machine translation, which may be the culprit altering the extraction results. If the length of output sequence can be reduced, the effect of exposure bias can be mitigated ... Finally we solved it by turning the sequence to an Unordered-Multi-Tree, and built a new system, [Seq2UMTree](https://arxiv.org/pdf/2009.07503.pdf). This paper was accpepted by **Findings of EMNLP 2020**.
-
-  Seq2UMTree is not perfect. We find that there are still some errors caused by the shortage of relations and linguistic patterns in the training set. We are working on building a better system and would love to chat about it. If you are interested, maybe we can have Zoom coffee! --> 
-
 
 
 <!-- ## Paper and Manuscript
