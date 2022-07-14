@@ -53,14 +53,14 @@ with Multi-Task Learning**. AAAI, 2020. Retrieved from [here](https://arxiv.org/
 
 *PhD in Computer Science, 2022  - Present*
 
-Advisor: Rui Zhang
+Advisor: Dr. Rui Zhang
 
 ------
 **University of Illinois Urbana-Champaign**
 
 *MS in Information Management, 2019 - 2021*
 
-Advisor: Heng Ji
+Advisor: Dr. Heng Ji
 
 ------
 
@@ -69,7 +69,7 @@ Advisor: Heng Ji
 
 *BS in Computer Science, 2014 - 2018*
 
-Advisor: Daojian Zeng
+Advisor: Dr. Daojian Zeng
 
 ## Contact
 
