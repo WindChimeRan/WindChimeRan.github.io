@@ -31,7 +31,8 @@ I am a first-year CS PhD student at Penn State University advised by Dr. [Rui Zh
 
 <!-- , advised by Professor Heng Ji. Prior to joining BLENDER at UIUC, I received my bachelor’s degree in computer science at CSUST, where I was supervised by Dr. Zeng. -->
 
-Download my CV [here](https://windchimeran.github.io/files/Haoran_Zhang_CV.pdf)
+<!-- Download my CV [here](https://windchimeran.github.io/files/Haoran_Zhang_CV.pdf) -->
+Download my CV [here](https://windchimeran.github.io/files/cv2022.pdf)
 
 
 
