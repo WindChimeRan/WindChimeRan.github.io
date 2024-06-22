@@ -8,12 +8,18 @@ redirect_from:
   - /about.html
 ---
 
-I am a first-year CS PhD student at Penn State University advised by Dr. [Rui Zhang](https://ryanzhumich.github.io/). My research interests lie in natural language processing. My research aims to build a universal framework that can **extract and deduce logical information from heterogeneous textual data**.
+I am a third-year CS PhD student at Penn State University advised by Dr. [Rui Zhang](https://ryanzhumich.github.io/). My research interests lie in natural language processing, specifically in making better use of available and unavailable data to develop better model. I am particularly want to explore the following questions:
 
-- Information Extraction
+-  With millions of data, millions of annotators, is it exhaustive enough to train a strong specialized model? 
+- What strategies can be employed to unify diverse labeled datasets for training universal models across multiple tasks?
+- When combining heterogeneous datasets, how can we maintain and verify data quality and consistency?
+
+I'm also interested in the applications of LLMs in Computer Science Education (CSEdu).
+
+<!-- - Information Extraction
 - Executable Semantic Parsing
 - Indirect Supervision
-- Education x NLP
+- Education x NLP -->
 
 <!-- its improvement or its applications in computational social science and learning science.  -->
 
@@ -32,7 +38,7 @@ I am a first-year CS PhD student at Penn State University advised by Dr. [Rui Zh
 <!-- , advised by Professor Heng Ji. Prior to joining BLENDER at UIUC, I received my bachelor’s degree in computer science at CSUST, where I was supervised by Dr. Zeng. -->
 
 <!-- Download my CV [here](https://windchimeran.github.io/files/Haoran_Zhang_CV.pdf) -->
-Download my CV [here](https://windchimeran.github.io/files/cv2022.pdf)
+Download my CV [here](https://windchimeran.github.io/files/cv2024.pdf)
 
 
 
