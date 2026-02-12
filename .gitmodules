@@ -1,4 +1,0 @@
-[submodule "content/public"]
-	path = content/public
-	url = git@github.com:WindChimeRan/WindChimeRan.github.io.git
-	branch = master

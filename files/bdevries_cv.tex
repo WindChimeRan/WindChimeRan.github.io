@@ -1,0 +1,1004 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Medium Length Graduate Curriculum Vitae
+% LaTeX Template
+% Version 1.1 (9/12/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Rensselaer Polytechnic Institute (http://www.rpi.edu/dept/arc/training/latex/resumes/)
+%
+% Important note:
+% This template requires the res.cls file to be in the same directory as the
+% .tex file. The res.cls file provides the resume style used for structuring the
+% document.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[margin, 10pt]{res} % Use the res.cls style, the font size can be changed to 11pt or 12pt here
+
+\usepackage{helvet} % Default font is the helvetica postscript font
+%\usepackage{newcent} % To change the default font to the new century schoolbook postscript font uncomment this line and comment the one above
+
+
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+\urlstyle{same}
+
+\usepackage{etaremune}
+
+\setlength{\textwidth}{5.1in} % Text width of the document
+
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	NAME AND ADDRESS SECTION
+%----------------------------------------------------------------------------------------
+
+\moveleft.5\hoffset\centerline{\large\bf Ranran Haoran Zhang} % Your name at the top
+ 
+\moveleft\hoffset\vbox{\hrule width\resumewidth height 1pt}\smallskip % Horizontal line after name; adjust line thickness by changing the '1pt'
+ 
+\moveleft.5\hoffset\centerline{ W343 Westgate Building} % Your address
+\moveleft.5\hoffset\centerline{University Park, PA, 16802}
+% \moveleft.5\hoffset\centerline{+1 (404)-823-7578}
+\moveleft.5\hoffset\centerline{hzz5361@psu.edu}
+\moveleft.5\hoffset\centerline{\href{windchimeran.github.io}{windchimeran.github.io}}
+
+%----------------------------------------------------------------------------------------
+
+\begin{resume}
+
+ 
+\section{RESEARCH \\ INTERESTS}  
+
+% My research interests lie in natural language processing. My research aims to build a universal framework that can \textbf{extract and deduce logical information from heterogeneous textual data}.
+% \begin{itemize}
+
+% \medskip
+
+%     \item Information Extraction
+%     \item Executable Semantic Parsing
+%     \item Education x NLP
+% \end{itemize}
+My research interests lie in making better use of \textbf{available} and \textbf{unavailable} data to develop better model, e.g.,
+\begin{itemize}
+\item  With millions of data, millions of annotators, is it exhaustive enough to train a strong specialized model? 
+\item  What strategies can be employed to unify diverse labeled datasets for training universal models across multiple tasks?
+\item When combining heterogeneous datasets, how can we maintain and verify data quality and consistency?
+\end{itemize}
+I'm also interested in the applications of LLMs in Computer Science Education (CSEdu), and use the CSEdu theory to develop better CodeLLMs datasets. 
+
+\section{EDUCATION}
+
+{\sl Ph.D. Computer Science and Engineering} \hfill Jan. 2022 - Present \\
+\textbf{Penn State University} \\
+% GPA: 3.88, Qual: (Algo, Sys) High Pass, Low Pass \\
+Advisor: Dr. Rui Zhang
+
+{\sl M.S. Information Management} \hfill Aug. 2019 - May. 2021 \\
+\textbf{University of Illinois Urbana-Champaign} \\
+Advisor: Dr. Heng Ji
+
+{\sl B.S. Computer Science and Technology} \hfill Sep. 2014 - Jun. 2018 \\
+\textbf{Changsha University of Science \& Technology} \\
+Thesis: Intent Classification Based on Pattern Engine \\
+Advisor: Dr. Daojian Zeng
+
+
+\section{EXPERIENCE}
+% \section{RESEARCH \\ EXPERIENCE}
+
+% {\sl Applied Scientist Intern} \hfill Jun. 2022 - Aug. 2022\\
+% Amazon, New York, NY \\
+% Project: Long Dialogue Summarization \\
+% Advisor: Dr. Xiaofei Ma, Dr. Wei Xiao \\
+
+
+{\sl Co-OP Researcher} \hfill Sep. 2023 - Apr. 2025\\
+eBay, Remote \\
+Project: Advertising Keyphrase Generation
+\begin{itemize}
+    \item Low-latency Seq2Seq model to generate infinite number of keyphrases from a finite annotated dataset. 
+    \item Paper \& Product-driven development.
+\end{itemize}
+
+
+{\sl Team Lead} \hfill Jan. 2023 - Aug. 2023\\
+Amazon, Remote \\
+Project: Task-Oriented Multimedia Chatbot
+\begin{itemize}
+    \item Team lead of 12 members for 8 months, working on NLP, Multidemia and MLOps.
+\end{itemize}
+
+{\sl R \& D Intern} \hfill Aug. 2021 - Nov. 2021\\
+Benten Tech, Remote \\
+Project: Chatbot for Alzheimer's Caregiver 
+\begin{itemize}
+    \item Information Retrieval based FAQ module. 
+    \item Neural based chitchat module with long-term memory.
+    \item Deployed on Alexa Skill.
+\end{itemize}
+
+
+% {\sl Research Assistant} \hfill Jan. 2021 - Dec. 2021\\
+% Yale University, New Haven, CT\\
+% Project: Long Text Summarization [C4, C5, C6, C7]\\
+% Advisor: Dr. Dragomir R. Radev \\
+
+% {\sl Research Intern} \hfill Aug. 2017 - Jun. 2018 \\
+% Microsoft Research Asia, Beijing, China\\
+% Project: Intent Classification and Name Entity Recognition [C1]\\
+% Advisor: Dr. Zijia Lin\\
+
+% \section{ONGOING PROJECT}
+
+% {\sl Alexa Prize TaskBot Challenge 2} \hfill Nov. 2022 - Nov. 2023
+% \begin{itemize}
+%     \item Proposal awarded research funding of \$250,000. 
+%     \item Team lead of the PSU TaskBot Challenge Team. In charge of team management, technical oversight, team coordination, research and innovation guiding, and project resource management.
+% \end{itemize}
+
+% {\sl Universal Few Shot Sequence Labeling} \hfill Feb. 2023 - Now
+% \begin{itemize}
+%     \item Solve different structure prediction tasks by one model. 
+%     \item Propose a new efficient finetuning for a large language model.
+% \end{itemize}
+
+% {\sl Faithful Reasoning against Belief Bias} \hfill Jul. 2022 - Now
+% \begin{itemize}
+%     \item Construct a large natural language reasoning dataset based on real-world knowledge. 
+%     \item Evaluate the faithfulness of the language model reasoning by counterfactual examples. 
+% \end{itemize}
+% \newpage
+% \section{PREPRINT}
+\section{MANUSCRIPT}
+
+\begin{etaremune}
+\renewcommand{\labelenumi}{[P\theenumi].}
+\item \textbf{Ranran Haoran Zhang}, Soumik Dey, Ashirbad Mishra, Hansi Wu, Binbin Li, Rui Zhang. ``Batch Speculative Decoding Done Right''. arXiv preprint 2025.
+
+\item \textbf{Ranran Haoran Zhang}, Aysa Xuemo Fan, Xiaoxin Lu, Wenpeng Yin, Rui Zhang. ``AlignGuide: Resolving Cross-Dataset Annotation Conflicts through Guideline-Data Co-Reconciliation''. Under-review by TACL-2025
+
+
+
+
+\end{etaremune}
+
+% \begin{etaremune}
+% \renewcommand{\labelenumi}{[P\theenumi].}
+
+% \item \textbf{Yusen Zhang}, Yang Liu, Ziyi Yang, Yuwei Fang, Yulong Chen, Dragomir Radev, Chenguang Zhu, Michael Zeng, Rui Zhang. ``MACSum: Controllable Summarization with Mixed Attributes''. Preprint. 
+% \end{etaremune}
+% \section{MANUSCRIPT}
+% \begin{etaremune}
+% \renewcommand{\labelenumi}{[\theenumi].}
+
+% % \item \textbf{Ranran Haoran Zhang}, Parker Sell , Yusen Zhang , Liwei Che , Allen Gao, Sathiyajith K S , Rishabh Bhatt , Piyush Nagasubramaniam , Sujeeth Vummanthala, Salika Dave , Harsh Maniar , Vishnu Dasu , Rui Zhang. ``EvoquerBot: A Multimedia Chatbot Leveraging Synthetic Data for Cross-Domain Assistance''
+
+% \item \textbf{Ranran Haoran Zhang}, Bensu Uçar, Soumik Dey, Hansi Wu, Binbin Li, Rui Zhang. ``From Lazy to Prolific: Tackling Missing Labels in Open Vocabulary Extreme Classification by Positive-Unlabeled Sequence Learning''. arxiv
+
+
+% % \item Sarkar Snigdha Sarathi Das, \textbf{Ranran Haoran Zhang}, Peng Shi, Wenpeng Yin, Rui Zhang. ``Unified Low-Resource Sequence Labeling by Sample-Aware Dynamic Sparse Finetuning''.  
+% \end{etaremune}
+\section{PUBLICATIONS}
+* indicates equal contribution \\
+
+% \textbf{Pre-print/Under Review}
+
+
+\begin{etaremune}
+\renewcommand{\labelenumi}{[\theenumi].}
+\item Jiangshu Du, Yibo Wang, Wenting Zhao, Zhongfen Deng, Shuaiqi Liu, Renze Lou, Henry Peng Zou, Pranav Narayanan Venkit, Nan Zhang, Mukund Srinath, \textbf{Ranran Haoran Zhang}, Vipul Gupta, Yinghui Li, Tao Li, Fei Wang, Qin Liu, Tianlin Liu, Pengzhi Gao, Congying Xia, Chen Xing, Jiayang Cheng, Zhaowei Wang, Ying Su, Raj Sanjay Shah, Ruohao Guo, Jing Gu, Haoran Li, Kangda Wei, Zihao Wang, Lu Cheng, Surangika Ranathunga, Meng Fang, Jie Fu, Fei Liu, Ruihong Huang, Eduardo Blanco, Yixin Cao, Rui Zhang, Philip S. Yu, Wenpeng Yin. ``LLMs Assist NLP Researchers: Critique Paper (Meta-)Reviewing''. EMNLP 2024.
+
+\item Xiaoxin Lu, \textbf{Ranran Haoran Zhang}, Yusen Zhang, Rui Zhang.``Enhance Multimodal Consistency and Coherence for Text-Image Plan Generation''. ACL 2025 Findings
+
+\item Ryo Kamoi, Yusen Zhang, Sarkar Snigdha Sarathi Das, \textbf{Ranran Haoran Zhang}, Rui Zhang. ``VisOnlyQA: Large Vision Language Models Still Struggle with
+Visual Perception of Geometric Information''.  COLM 2025
+
+\item \textbf{Ranran Haoran Zhang}, Bensu Uçar, Soumik Dey, Hansi Wu, Binbin Li, Rui Zhang. ``From Lazy to Prolific: Tackling Missing Labels in Open Vocabulary Extreme Classification by Positive-Unlabeled Sequence Learning''. NAACL 2025 Findings
+
+\item Yusen Zhang, Wenliang Zheng, Aashrith Madasu, Peng Shi, Ryo Kamoi, Hao Zhou, Zhuoyang Zou, Shu Zhao, Sarkar Snigdha Sarathi Das, Vipul Gupta, Xiaoxin Lu, Nan Zhang, \textbf{Ranran Haoran Zhang}, Avitej Iyer, Renze Lou, Wenpeng Yin, Rui Zhang. ``HRScene: How Far Are VLMs from Effective High-Resolution Image Understanding?''. ICCV 2025.
+
+\item Ryo Kamoi, Sarkar Snigdha Sarathi Das, Renze Lou, Jihyun Janice Ahn, Yilun Zhao, Xiaoxin Lu, Nan Zhang, Yusen Zhang, \textbf{Ranran Haoran Zhang}, Sujeeth Reddy Vummanthala, Salika Dave, Shaobo Qin, Arman Cohan, Wenpeng Yin, Rui Zhang. ``Evaluating LLMs at Detecting Errors in LLM Responses''. COLM 2024
+\item \textbf{Ranran Haoran Zhang}, Parker Sell , Yusen Zhang , Liwei Che , Allen Gao, Sathiyajith K S , Rishabh Bhatt , Piyush Nagasubramaniam , Sujeeth Vummanthala, Salika Dave , Harsh Maniar , Vishnu Dasu , Rui Zhang. ``EvoquerBot: A Multimedia Chatbot Leveraging Synthetic Data for Cross-Domain Assistance''. Alexa Prize TaskBot Challenge 2 Proceedings.
+
+
+\item Sarkar Snigdha Sarathi Das, \textbf{Ranran Haoran Zhang}, Peng Shi, Wenpeng Yin, Rui Zhang. ``Unified Low-Resource Sequence Labeling by Sample-Aware Dynamic Sparse Finetuning''.  EMNLP 2023.
+
+\item Aysa Xuemo Fan, \textbf{Ranran Haoran Zhang}, Luc Paquette, Rui Zhang. ``Exploring the Potential of Large Language Models in Generating Code-Tracing Questions for Introductory Programming Courses''. EMNLP 2023 Findings.
+
+\item \textbf{Ranran Haoran Zhang}, Aysa Xuemo Fan, Rui Zhang. ``ConEntail: An Entailment-based Framework for Universal Zero and Few Shot Classification with Supervised Contrastive Pretraining''. EACL 2023. 
+
+\item Qingyun Wang, Manling Li, Xuan Wang, Nikolaus Parulian, Guangxing Han, Jiawei Ma, Jingxuan Tu, Ying Lin, \textbf{Ranran Haoran Zhang}, Weili Liu, Aabhas Chauhan, Yingjun Guan, Bangzheng Li, Ruisong Li, Xiangchen Song, Heng Ji, Jiawei Han, Shih-Fu Chang, James Pustejovsky, David Liem, Ahmed Elsayed, Martha Palmer, Jasmine Rah, Cynthia Schneider, Boyan Onyshkevych. ``COVID-19 Literature Knowledge Graph Construction and Drug Repurposing Report Generation``. NAACL'2021 Demo. \underline{Best Demo Award}. 
+
+\item \textbf{Ranran Haoran Zhang}*, Qianying Liu*, Aysa Xuemo Fan, Heng Ji, Daojian Zeng, Fei Cheng, Daisuke Kawahara and Sadao Kurohashi. ``Minimize Exposure Bias of Seq2Seq Models in Joint Entity and Relation Extraction''. EMNLP 2020-Findings.
+
+\item Daojian Zeng*, \textbf{Ranran Haoran Zhang}*, Qianying Liu. ``CopyMTL: Copy Mechanism for Joint Extraction of Entities and Relations with Multi-Task Learning''. AAAI 2020.
+
+\item Daojian Zeng, \textbf{Ranran Haoran Zhang}, Lingyun Xiang, Jin Wang, Guoliang Ji. ``User-oriented paraphrase generation with keywords controlled network''. IEEE~Access 2019
+
+    
+\end{etaremune}
+
+\section{HONORS AND AWARDS}
+NAACL Best Demo Paper  \hfill 2021 \\
+EMNLP Outstanding Reviewer \hfill 2024 \\
+% Best Thesis Award, CSUST \hfill 2018 \\
+% Dean's Scholarship, CSUST \hfill 2015-2017 \\
+
+    
+% Dr. Tse-Yun Feng Graduate Student Award, CSE Dept., Penn State University \hfill 2022 \\
+% The 28$^{th}$ place (19 teams to Final), ACM-ICPC North America Champions \hfill 2020\\
+%  The 3$^{rd}$ place, ACM-ICPC Southeast American Regional Contest  \hfill 2019 \\
+% ``Star of Tomorrow'' Excellence Award, Microsoft Research Asia \hfill 2018\\
+% Science and Technology Award, Beijing Institute of Technology (19/3000) \hfill 2018 \\ 
+
+\section{SERVICES}
+% Review committee, EMNLP 2022 \\
+Reviewer, ACL-ARR \hfill 2023-2025 \\
+Reviewer, ICLR. \hfill 2024 \\
+Reviewer, NeurIPS. \hfill 2023 \\
+Reviewer, EMNLP. \hfill 2022, 2023 \\
+Reviewer, COLING. \hfill 2022 \\
+Reviewer, JMLC. \hfill 2021 \\
+
+% Program Committee of InTex-SemPar @ EMNLP 2020 
+
+\section{PROFESSIONAL
+REFERENCE}
+Rui Zhang, Ph.D. \\
+Assistant Professor,\\
+Computer Science and Engineering Department,\\
+Penn State University. \\
+Address: W329 Westgate Building, University Park, PA 16802\\
+Email: rmz5227@psu.edu \\
+Relationship: Ph.D. Advisor
+
+% \section{SPECIAL \\ ACHIEVEMENTS} 
+% {\sl Awards}
+% \begin{itemize}
+% \item \emph{TU/e EE dept. Innovation Research Award} for ``research on Bayesian Intelligent Agents'', TU Eindhoven, EE department, Jan. 2019
+% \item \emph{Return-on-Performance Award}, for ``technical work on Speech Enhancement technology'', Sarnoff Corporation, 1998
+% \item \emph{David Sarnoff Achievement Award}, for ``leadership and technical contributions in the area of adaptive speech enhancement'', Sarnoff Corporation, 1997
+% \item \emph{David Sarnoff Event Focus Award} for ``Winning Sarnoff's First Commercial Contract for Speech Processing'', David Sarnoff Research Center, 1996
+% \item \emph{Presidential Recognition Award}, University of Florida, 1988
+% \item $\delta$\emph{-Butterweck Award} (awards top GPA), Technical University Eindhoven, 1984
+% \end{itemize} 
+
+% {\sl Invited Lectures (selection)}
+% \begin{itemize} 
+
+% \item AI Insight Talk at Google Amsterdam, "Automated Natural Design of Signal Processing Algorithms", Amsterdam, 17 May 2019  
+
+% \item Design, Automation and Test in Europe conference (DATE-2019), "Automated Signal Processing Design through Bayesian Model-based Machine Learning", Florence (Italy), 28 March 2019
+
+% \item Annual conference Kring Klinische Audiologie, "In-situ Personalization of Hearing Devices", Putten (NL), Nov. 2017
+
+% \item University College London (UCL), "A Factor Graph Approach to Active Inference", Nov. 2016
+
+% \item Cochlear/ReSound Event, Keynote lecture on "The Future of Hearing Aid personalization", Sep.2016
+
+% \item WIC Mid-winter meeting on 'Big Data and Data Analytics', "Design of Signal Processing Algorithms through Probabilistic Inference", Eindhoven, February 2016
+
+% \item \href{http://www.cqm.nl/}{CQM}, "In Situ Machine Learning for Signal Processing Systems", Eindhoven, August 2015
+
+% \item Radboud University Nijmegen, "Probabilistic Hearing Loss Compensation", Nijmegen, March 2015
+
+% \item INCAS3 Institute, "In Situ Personalization of Signal Processing Systems", Assen, October 2014
+
+% \item Leiden University Medical Center, New Year's keynote lecture on "Personalization of Medical Signal Processing Systems", Leiden, January 2014
+
+% \item Int'l Symposium on Auditory and Audiological Research (ISAAR), "Is Hearing Aid Signal Processing ready for Machine Learning?", Nyborg (DK), August 2013
+
+% \item Clinical Physicist Post-graduate school,''The Future of Hearing Aids'', Amersfoort January 2013
+
+% \item Delft Univ. of Technology, ''Machine Learning for Hearing Aids Technology'', Delft March 2012
+
+% \item International Forum for Hearing Instrument Developers, ''Bayesian Machine Learning for Hearing Aid Design, Fitting and Personalization'', Oldenburg (Germany), June 2011
+
+% \item University of Florida, ''Machine Learning Trends in the Hearing Aids Industry'', Gainesville, FL, April 2010
+
+% \item SIKS Research School, ''Gaussian mixture models and the EM Algorithm'', Vught, NL, Dec 2008
+
+% \item GN Nordic Audiology College, ''Learning technology in hearing aids'', Oslo, Norway, Sep 29, 2006
+
+% \item University of Nijmegen, ''Machine learning for hearing aids'', Nijmegen, Netherlands, June 2004
+
+% \item University of Florida, ''DSP for modern industrial hearing aids'', Gainesville, FL, January 2004
+
+% \item International Forum for Hearing Aid Developers, ''Warped-frequency filterbanks'', Oldenburg, Germany, July 2003
+
+% \item Keynote address ''An industrial perspective on intelligent hearing aids'' at 2nd McMaster-Gennum Workshop on Intelligent Hearing Instruments, Niagara-on-the-Lake, ON, Sep 2001
+
+% \item NIDCA/NASA/VA Hearing Aids Improvement Conference, May 1997
+
+% \item Lucent Technologies, Bell Laboratories, November 1996
+
+% \item AT\&T Research, Murray Hill, NJ, July 1996
+
+% \item NSA (U.S. Government), June 1993
+
+% \item Neural Network Workshop, Rutgers University, October 1992
+
+% \item David Sarnoff Research Center, October 1991
+
+%  \end{itemize} 
+
+% {\sl Professional Activities (selection)}
+
+% \begin{itemize}
+% \item Associate Editor for \href{http://tnsre.embs.org/}{IEEE Transactions on Neural Systems and Rehabilitation Engineering}, 2012 - 2018 
+
+% \item Invited member annual European Mathworks Advisory Board meetings, 2012 - 2015
+
+% \item Invited jury member for Open Technology Program (OTP) research proposals to Dutch Technology Foundation (STW), 2010
+
+% \item Invited DSP expert on IWT (Flemish Institute for Science and Technology) panel to evaluate candidate PhD proposals, Brussels, 2005 and 2006
+
+% \item Organizer/chair special session "DSP for Intelligent Hearing Aids", ICASSP 2002, Orlando, FL, 2002
+
+% \item Publicity chair, Neural Networks for Signal Processing Workshop, Amelia island, Florida (1997) and Cambridge, UK, 1998
+
+% \item Session chair Non-linear Systems Identification, ICASSP-96, Atlanta, GA (1996) and IEEE NNSP-98 Workshop, Cambridge, UK, 1998
+
+% \item (Elected) member of ''IEEE Technical Committee on Neural Networks for Signal Processing Society'', 1995-1998
+
+% \item Invited researcher in government sponsored ''Robust Speech Processing Workshop'', 1993
+
+% \item Member of various professional societies (e.g. IEEE, INNS), 1986 - present
+% \end{itemize}
+
+% {\sl Refereed Publications}
+
+% IEEE Transactions on Signal Processing, IEEE Transactions on Neural Networks, NeuroComputing Journal, Neural Networks Journal, EURASIP Journal of Applied Signal Processing, Advances in Neural Information Processing Systems (NIPS) Conferences, Interspeech, ICASSP Conferences and others
+
+% %\bigskip
+% %\moveleft 1.3\hoffset\centerline{\large\bf Activities at Eindhoven Univ. of Technology (TU/e)} 
+
+% \section{RESEARCH \\FUNDING \\ (at TU/e)}
+
+% Research at TU/e focusses on applications of Bayesian machine learning to personalization of hearing aid algorithms.
+
+% \begin{itemize}
+
+% \item (2018-2022), financial support for 4 PhD students by GN Hearing and TU Eindhoven in the context of a "mini-impulse" research program on \emph{collaborative hearing}. 
+
+% \item $750$K euro (2018 - 2022), together with \href{https://www.linkedin.com/in/henkjan-huisman-28a7b34b/}{Henkjan
+%   Huisman}
+%   and \href{http://www.es.ele.tue.nl/~heco/}{Henk
+%   Corporaal} to support 3 PhD
+%   students, from \href{https://www.nwo.nl/en}{NWO}
+%   for research on \emph{deep learning for human and animal health},
+%   in the context of \href{https://www.nwo.nl/en/news-and-events/news/2017/32-million-euros-for-top-level-technological-research.html\#zelflerend}{Efficient
+%   Deep Learning}.
+  
+% \item $550$K euro (2017 - 2021), together with \href{http://www.es.ele.tue.nl/~sander/}{Sander
+%   Stuijk} and \href{http://www.es.ele.tue.nl/~heco/}{Henk
+%   Corporaal}, supporting 3 PhD
+%   students, from \href{http://www.nwo.nl/en}{NWO} 
+%   to pursue research on \emph{Autonomous Acoustic
+%   Systems} in the context of
+%   \href{http://www.stw.nl/en/node/8025}{energy-autonomous
+%   systems for IoT}.
+  
+% \item $500$K euro (2015 - 2019), together with
+%   \href{http://www.sps.ele.tue.nl/members/T.J.Tjalkens}{Tjalling
+%   Tjalkens}, supporting 2 PhD
+%   students, from Dutch Technology Foundation
+%   \href{http://www.stw.nl/en/}{STW} to pursue
+%   research on
+%   \href{http://stw.nl/nl/content/hearscan-towards-data-driven-hearing-aids}{Data-driven
+%   Hearing Aids}.
+  
+% \item $500$K euro (2014 - 2018),  supporting 2 PhD students
+%   at TU/e, from GN ReSound to support research on hearing aids
+%   personalization.
+  
+% \item $130$K euro (2006 - 2008) from GN ReSound to support 2 PDEng students at TU/e.
+
+% \item $650$K euro (2006 - 2010), together with
+% \href{http://www.cs.ru.nl/staff/Tom.Heskes}{Tom
+%   Heskes} and
+%   \href{http://www.ac-amc.nl/medewerkers/dreschler.html}{Wouter
+%   Dreschler}, from
+%   \href{http://www.stw.nl}{STW} to pursue further
+%   research on
+%   \href{http://www.nwo.nl/en/research-and-results/research-projects/35/2300148635.html}{Personalization
+%   of Hearing Aids through Bayesian Preference Elicitation}.
+
+% \end{itemize}
+
+% \section{TEACHING \\ (at TU/e)}
+
+% \begin{itemize}
+% \item {\sl \href{http://bertdv.github.io/teaching/AIP-5SSB0/}{Adaptive Information Processing (5SSB0)} \hfill 2005-Present} \\
+% Together with \href{http://www.sps.ele.tue.nl/members/T.J.Tjalkens}{Tjalling Tjalkens}, core
+%   graduate class on the fundamentals of machine learning.
+% \item {\sl Development of
+%   (Electro)-technology \hfill 2011-2017} \\
+%  Guest lecturer for introductory EE course 
+% \end{itemize}
+
+% \section{STUDENT \\ SUPERVISION \\ (at TU/e)}
+
+% \begin{etaremune}
+% \item Ismail Senoz, {\em Generative
+%   Probabilistic Models for Audio Textures}, M.Sc. thesis, 10/2017 
+% \item Jiyang Li, {\em Online Preference Learning},  M.Sc. internship, 9/2017 
+% \item Anouk van Diepen, {\em A Probabilistic
+%   Modeling Approach to In-situ Trainable Gesture Recognition}, M.Sc. thesis, 5/2017 
+% \item Wouter van Roosmalen, {\em In-situ
+%   Design of Noise Reduction Algorithms}, M.Sc. thesis, 6/2016
+% \item
+%   Anouk van Diepen, {\em Derivation and
+%   Implementation of Gausssian Mixture Model in a Forney-style Factor
+%   Graph} M.Sc. internship, 6/2016 
+% \item
+% Pradeep Kumar, {\em On
+%   Discrete-Valued Message Passing in Factor Graphs} M.Sc. practical training project, 10/2015
+% \item
+%   Rene Duijkers, {\em A Factor Graph
+%   Approach to Hearing Loss Compensation} M.Sc. thesis, 10/2014 
+% \item
+%  Max Schoonderbeek, {\em A Factor Graph
+%   Approach to Gaussian Process Preference Learning} M.Sc. thesis, 10/2014
+% \item
+% Art Senders, {\em A Julia
+%   Toolbox for Forney-style Factor Graphs}, M.Sc. practical training project, 6/2014 
+% \item Robert Leenders, {\em Gaussian Process
+%   based Preference Learning as a Classification Problem} B.Sc. final project, 4/2014
+% \item
+% Rene Duijkers, 
+%   {\em Online
+%   Bayesian Spectral Tracking},  M.Sc. practical training project,  1/2014 
+% \item
+% Brian Hutama Susilo, 
+%   {\em Automated Tuning Algorithm for Low-latency PC-based Audio
+%   Processing} M.Sc. practical training project, 12/2013 
+% \item
+% Zijian Xu, {\em Fast
+%   Design of Audio Processing Algorithms by Interactive Parameter
+%   Exploration}, M.Sc. thesis, 8/2013
+% \item
+% Timur Bagautdinov, \href{https://github.com/bertdv/bertdv.github.io/blob/master/files/bagautdinov-thesis.final.pdf}{A
+%   Machine Learning Framework for Bayesian Signal
+%   Processing}, M.Sc. thesis, 8/2013
+% \item
+% Marno van der Maas, {\em Browser-based
+%   Remote Control of Hearing Aids}, B.Sc. research project, 6/2013 
+% \item Timur Bagautdinov, {\em A
+%   MATLAB/C++ toolbox for Factor Graph Modeling}, M.Sc. traineeship project, 12/2012 
+% \item Maarten Thomassen, {\em Spectral Audio Monitoring}, M.Sc. practical training project,  6/2012
+% \item
+% Joris Kraak, {\em Computer-Aided
+%   Algorithm Design for Audio Processing}, M.Sc.-thesis, 4/2012 
+% \item Joris Kraak, {\em Optimization of a Spectral Noise Tracking Algorithm}, M.Sc. practical training project, 10/2010
+% \item
+% Jianfeng Li, {\em Acoustic
+%   scene-adaptive speech enhancement}, M.Sc.-thesis, 8/2010
+% \item Jianfeng Li, {\em Spatial defect clustering on
+%   semiconductor wafers using image processing techniques}, M.Sc. thesis, 8/2009 
+% \item Xueru Zhang, {\em Bayesian periodogram
+%   smoothing for speech enhancement}, PD.Eng.-thesis, 9/2008 
+% \item Rene Besseling, {\em Gaussian processes in
+%   Bekesy audiometry}, M.Sc. project, 6/2008 
+% \item Serkan Ozer, {\em Bayesian linear regression for
+%   user-adaptive hearing aids}, M.Sc. thesis, 8/2007 
+% \item
+% Ronnie van Loon, {\em a Probabilistic Approach
+%   to Sound Classification} M.Sc.thesis, 6/2007 
+% \item Anton Vakrushev, {\em Interactive machine
+%   learning for Personalization of hearing aid algorithms}, PD.Eng. thesis, 9/2006 
+% \item  Jorik Caljouw, {\em PDA-based
+%   Interfacing to a real-time audio platform}, M.Sc. practical training, 10/2005 
+% \item
+% Paul Aelen, {\em Determination of the
+%   Intra-Uterine Pressure with electrodes on the abdomen}, M.Sc. thesis, 10/2005 
+% \item
+% Job Geurts, {\em A PC-based
+%   real-time simulation platform for evaluating hearing aid algorithms}, M.Sc. practical training, 6/2005 
+% \end{etaremune}
+
+% \section{SUPERVISOR \\ PhD \\COMMITTEE}
+
+% \begin{etaremune}
+% \item Thijs van de Laar, Ph.D., \emph{Automated Design of Bayesian Signal Processing Algorithms}, TU Eindhoven, 6/2019
+% \end{etaremune}
+
+% \section{MEMBER PhD\\ COMMITTEE}
+
+% \begin{etaremune}
+
+% \item Chara Papatsimpa, Ph.D. \emph{Performance of Intelligent Lighting Sensor Networks: Analysis, Modelling and Distributed Architectures}, TU Eindhoven, 5/2019
+
+% \item Andreas Koutrouvelis, Ph.D., \emph{Multi-microphone Noise reduction for Hearing Assistive Devices}, Delft University of Technology, 12/2018
+
+% \item Juan Sebastian Olier, Ph.D., \emph{Dynamic Representations: Building knowledge through an active representational process based on deep generative models}, Eindhoven University of Technology, 10/2018
+% \item
+%  Henk Kortier, Ph.D., {\em Assessment of Hand Kinematics and
+%   Interactions with the Environment}, University of Twente, 02/2018 
+% \item
+% Math Verstraelen, Ph.D., {\em The WaveCore - A Scalable
+%   Architecture for Real-time Audio Procesing} University of Twente,   01/2017 
+% \item
+% Amir Jalalirad, Ph.D., {\em Supervised Learning through
+%   Feature-based Models}, TU Eindhoven, 12/2016 
+% \item
+% Yuan Zeng, Ph.D., {\em Distributed Speech Enhancement in Wireless
+%   Acoustic Sensor Networks}, Delft University of Technology, 6/2015
+% \item
+% Ingeborg Brons, Ph.D., {\em Perceptual evaluation of noise
+%   reduction in hearing aids}, University of Amsterdam, 12/2013 
+% \item
+% Jelte Vink, Ph.D., {\em Machine Learning for Efficient Object
+%   Recognition}, TU Eindhoven, 9/2013 
+% \item
+% Adriana Birlutiu, Ph.D., {\em Machine Learning for Pairwise Data},
+%   University of Nijmegen, 10/2011 
+% \end{etaremune}
+
+
+% \section{PROFESSIONAL \\ INTERVIEWS}
+
+% \begin{etaremune}
+% \item
+%   \href{http://www.audiology-worldnews.com/focus-on/1215-introducing-data-science-hearing-aids-on-the-brink-of-a-paradigm-shift}{Introducing
+%   Data Science: Hearing Aids on the Brink of a Paradigm
+%   Shift]}. Interview in
+%   \href{http://www.audiology-worldnews.com}{Audiology Info
+%   Magazine}, Dec 2014
+% \end{etaremune}
+
+
+% \section{PATENTS}
+
+% \begin{etaremune}
+% \item Bert de Vries, Andrew Dittberner and Joris Kraak, \emph{Hearing System, Accessory Device and Related Method for Situated Design of Hearing Algorithms}, filed by GN, P2048EP00, Nov 2018
+% \item
+%   Bert de Vries, Marco Cox and Joris Kraak, {\em Hearing Device and Method
+%   for Tuning Hearing Device Parameters}, filed by GN, 2017P00065EP, Dec
+%   2017
+% \item
+%   Almer van den Berg and Bert de Vries, {\em Sound signal modelling based on
+%   recorded object sound}, filed by GN ReSound, EP16206941.3, Dec.~2016
+% \item
+%   Bert de Vries and Joris Kraak, {\em Automated Scanning for Hearing Aid
+%   Parameters}, filed by GN ReSound, July 2016
+% \item
+%   Fredrik Gran et al., {\em Performance-based In Situ Optimization of Hearing
+%   Aids}, filed by GN ReSound, US-2017055090, priority date June 2015, pub
+%   date Dec 2016
+% \item
+%   Bert de Vries and Erik van der Werf, {\em A Multi-band Signal Processor for
+%   Digital Audio Signals}, filed by GN ReSound, US-2015317995, EP-2941020,
+%   priority date May 2014
+% \item
+%   Andrew Dittberner, Bert de Vries et al., {\em A Location Learning Hearing
+%   Aid}, filed by GN ReSound, JP-2015130659, US-2015172831, EP-2884766,
+%   priority date Dec.~2013
+% \item
+%   Bert de Vries and Mojtaba Farmani, {\em A Hearing Aid with Probabilistic
+%   Hearing Loss Compensation}, filed by GN ReSound, CN-105706466,
+%   EP-2871858, priority date Nov.~2013
+% \item
+%   Bert de Vries et al., {\em Efficient evaluation of hearing ability}, filed
+%   by GN ReSound, US Patent 9,560,991 (granted 2017), priority date April
+%   2009
+% \item
+%   Alexander Ypma et al., {\em Asymmetric adjustment}, filed by GN ReSound, US
+%   patent 8792659 (granted 7/2014), priority date Nov-2008
+% \item
+%   Alexander Ypma et al., {\em Learning control of hearing aid parameter settings}, filed by GN ReSound, US patent 9408002 (granted 8/2016),
+%   priority date Mar-2006
+% \item
+%   Bert de Vries and Alexander Ypma, {\em Optimization of Hearing Aid
+%   Parameters}, filed by GN ReSound, US patent 9084066 (granted 7/2015),
+%   priority date Oct 2005
+% \item
+%   David Zhao, Bastiaan Kleijn, Alexander Ypma and Bert de Vries, {\em Method
+%   and Apparatus for Improved Estimation of Non-stationary Noise for
+%   Speech Enhancement}, filed by GN ReSound, US patent 7590530 (granted
+%   8/2009), priority date Sep 2005
+% \item
+%   Bert de Vries and Rob de Vries, {\em Fitting methodology and hearing
+%   prosthesis based on signal-to-noise ratio loss data}, US patent 7804973
+%   (granted 9/2010), priority date 2/2002
+% \item
+%   L. Parra and B. de Vries, {\em Method and apparatus for adaptive speech
+%   detection by applying a probabilistic description to the
+%   classification and tracking of signal components}, patent registered
+%   for Sarnoff Corporation, LG Electronics, Inc., US patent 6691087
+%   (granted Feb-2004), priority date Nov 1997
+% \item
+%   Bert de Vries, {\em Noise Spectrum Tracking for Speech Enhancement}, patent
+%   registered for Sarnoff Corporation, no. US6289309, 9/11/2001
+% \item
+%   J. Lubin et al., {\em Method and apparatus for training a neural network to
+%   learn and use fidelity metric as a control mechanism}, patent
+%   registered for Sarnoff Corporation, no. US6075884, 6/13/2000
+% \item
+%   Bert de Vries, {\em Method and apparatus for filtering signals using a
+%   gamma delay line based estimation of power spectrum}, patent registered
+%   for Sarnoff Corporation, no. US6073152, 6/6/2000
+% \item
+%   M. Brill, J. Lubin, B. de Vries, O. Finard, {\em Method and apparatus for
+%   assessing the visibility of differences between two image sequences},
+%   patent registered for Sarnoff Corporation, no. US5974159, 10/26/1999
+
+% \item
+%   Bert de Vries, {\em Method and system for training a neural network with
+%   adaptive weight updating and adaptive pruning in principal components
+%   space}, patent registered for David Sarnoff Research Center, no.
+%   5,812,992, 9/22/98
+% \item
+%   Bert de Vries and Jose Principe, {\em An adaptive filter based on a
+%   recursive delay line}, patent registered for University of Florida, no.
+%   5,301,135, April 1994
+% \end{etaremune}
+
+% \section{JOURNAL \\ARTICLES}
+% See also \href{https://scholar.google.nl/citations?user=x3EIIHEAAAAJ&hl=en}{my google scholar} page. \\
+% \begin{etaremune}
+% \item Thijs van de Laar and Bert de Vries, \href{https://goo.gl/TH9abN}{Simulating Active Inference Processes by Message Passing}, \emph{Frontiers in Robotics and AI}, March 2019
+% \item Marco Cox, Thijs van de Laar and Bert de Vries, 
+% \href{https://goo.gl/Y9Faz8}{A Factor Graph Approach to Automated Design of Bayesian Signal Processing Algorithms}, \emph{International Journal of Approximate Reasoning}, Nov. 2018
+% \item
+%   Bert de Vries and Karl J. Friston,
+%   \href{https://www.frontiersin.org/articles/10.3389/fncom.2017.00095/full}{A
+%   Factor Graph Description of Deep Temporal Active
+%   Inference}, {\em Frontiers in Computational Neuroscience}, Oct.~2017
+% \item
+%   Karl J. Friston, Thomas Parr and Bert de Vries,
+%   \href{http://www.mitpressjournals.org/doi/abs/10.1162/NETN_a_00018}{The
+%   graphical brain: belief propagation and active inference},
+%   {\em Network Neuroscience}, the MIT Press, vol.1, no.1, pp.1-78, 2017
+% \item
+%   Thijs van de Laar and Bert de Vries,
+%   \href{http://arxiv.org/abs/1602.01345}{A Probabilistic
+%   Modeling Approach to Hearing Loss Compensation}, {\em IEEE
+%   Tr. on Audio, Speech and Language Processing}, Nov.~2016
+% \item
+%   Rik Vullings et al., An Adaptive Kalman Filter for ECG Signal
+%   Enhancement, {\em IEEE Transactions on Biomedical Engineering},
+%   vol.58, no.4, April 2011 
+% \item
+%   A. Ypma et al.,
+%   \href{http://www.hindawi.com/GetArticle.aspx?doi=10.1155/2008/183456}{On-line
+%   Personalization of Hearing Instruments}, {\em EURASIP
+%   Journal on Audio, Speech, and Music Processing}, September 2008
+% \item
+%   Tjeerd Dijkstra et al.,
+%   \href{http://www.hearingreview.com/issues/articles/2007-10_05.asp}{The
+%   Learning Hearing Aid: Common-Sense Reasoning in Hearing Aid
+%   Circuits}, The Hearing Review, October 2007
+% \item
+%   David Zhao et al., On-line Noise Estimation Using Stochastic-Gain HMM
+%   for Speech Enhancement, {\em IEEE Transactions on Audio, Speech and
+%   Language Processing}, vol.16, no.4, May 2008
+% \item
+%   Jose Principe et al., Locally Recurrent Networks: The Gamma Operator,
+%   Properties and Extensions, invited book chapter in {\em Neural
+%   Networks and Pattern Recognition}, Omidvar and Dayhoff (eds.),
+%   Academic Press, 1997
+% \item
+%   Bert de Vries, Short term memory structures for dynamic neural
+%   networks, book chapter in: {\em Artificial Neural Networks for Speech and Vision}, Richard Mammone (ed.), Chapman \& Hall Ltd., 1994
+% \item
+%   Bert de Vries and Jose Principe, The gamma model--A new neural network
+%   for temporal processing, {\em Neural Networks} vol.~5(4), pp.~565-576,
+%   1992 {\bf {[}240{]}}
+% \item
+%   Jose Principe and Bert de Vries, The gamma filter--A new class of
+%   adaptive IIR filters with restricted feedback, IEEE transactions on
+%   signal processing, vol.~41(2), pp.~649-656, 1992 
+% \item
+%   Bert de Vries,
+%   \href{http://ufdc.ufl.edu/UF00082173/00001}{Temporal
+%   processing with neural networks-the development of the Gamma
+%   model}, {\em Ph.D.~dissertation}, University of Florida,
+%   1991
+% \item
+%   Joachim Gravenstein et al., Sampling intervals for clinical monitoring
+%   of variables during anesthesia, {\em Journal of clinical monitoring}
+%   vol 5(1), 1989
+% \item
+%   Jan J. van der Aa, Bert de Vries and Joachim Gravenstein, Toward more
+%   sophisticated monitoring alarms, {\em Journal of clinical monitoring}
+%   4 (2), 1986
+
+% \end{etaremune}
+
+% \section{CONFERENCE \\ CONTRIBUTIONS}
+
+% \begin{etaremune}
+% \item Albert Podusenko, Wouter Kouw and Bert de Vries, Online Variational Message Passing in
+% Autoregressive Models, \emph{Symposium on Information Theory in the Benelux}, Ghent (Belgium), May 2019
+
+% \item Magnus Koudahl, Wouter Kouw and Bert de Vries, Agent Alignment by Active Inference, \emph{Symposium on Information Theory in the Benelux}, Ghent (Belgium), May 2019
+
+% \item Patrick Wijnings, Sander Stuijk, Bert de Vries and Henk Corporaal, Robust Bayesian Beamforming for Sources at Different Distances with Applications in Urban Monitoring, \emph{Int'l Conference on Audio, Speech and Signal Processing (ICASSP)}, Brighton (UK), May 2019 
+
+% \item Marco Cox, Thijs van de Laar, Bert de Vries, ForneyLab.jl: Fast and flexible automated inference through message passing in Julia, \emph{First Int'l conf. on Probabilistic Programming}, Boston (MA), October 2018
+
+% \item Thijs van de Laar et al., ForneyLab: A Toolbox for Biologically Plausible Free Energy Minimization in Dynamic Neural Models, \emph{Conference on Complex Systems}, Thessaloniki, Greece, September 2018
+
+% \item Ismail Senoz and Bert De Vries, Online Variational Message Passing In The Hierarchical Gaussian Filter, (\emph{Best student paper award}), \emph{Machine Learning for Signal Processing conference (MLSP)}, Aalborg, Denmark, September 2018
+
+% \item Ivan Bocharov et al., Acoustic Scene Classification from Few Examples, \emph{EUSIPCO}, Rome, Italy, September, 2018
+
+% \item Marco Cox and Bert de Vries, Robust Expectation Propagation in Factor Graphs Involving Both Continuous and Binary Variables, \emph{EUropean SIgnal Processing COnference (EUSIPCO-2018)}, Rome, Italy 2018 
+
+% \item Thijs van de Laar, Marco Cox, Bert de Vries
+% , ForneyLab.jl: a Julia Toolbox for Factor Graph-based Probabilistic Programming, \emph{JuliaCon 2018}, \href{https://youtu.be/RS4hJ4oBr9c}{youtube}, London (UK), August 2018
+% \item
+%   Ivan Bocharov, Bert de Vries and Tjalling Tjalkens, K-shot Learning of
+%   Acoustic Context, NIPS-2017 workshop on
+%   \href{http://media.aau.dk/smc/ml4audio/}{machine learning
+%   for audio signal processing}, Long Beach (CA), Dec 2017
+% \item
+%   Marco Cox and Bert de Vries, A parametric approach to Bayesian
+%   optimization with pairwise comparisons.
+%   \href{http://bayesopt.com}{NIPS-2017 workshop on Bayesian
+%   Optimization}, Long Beach (CA), Dec 2017
+% \item
+%   Thijs van de Laar, Marco Cox, Anouk van Diepen and Bert de Vries,
+%   Variational Stabilized Linear Forgetting in State-Space Models,
+%   \emph{EUSIPCO-2017}, KOS Island (Greece), Aug.2017
+% \item
+%   Marco Cox and Bert de Vries, A Gaussian Process Mixture Prior for
+%   Hearing Loss Modeling, {\em Machine Learning Conference of the
+%   Benelux} (Benelearn), Eindhoven, 2017
+% \item
+%   Anouk van Diepen et al., An In-situ Trainable Gesture Classifier,
+%   {\em Machine Learning Conference of the Benelux} (Benelearn),
+%   Eindhoven, 2017
+% \item
+%   Quan (Eric) Nguyen et al., Probabilistic Inference-based Reinforcement
+%   Learning, {\em Machine Learning Conference of the Benelux}
+%   (Benelearn), Eindhoven, 2017
+% \item
+%   Thijs van de Laar and Bert de Vries, A Probabilistic Modeling Approach
+%   to Hearing Loss Compensation, {\em Machine Learning Conference of the
+%   Benelux} (Benelearn), Eindhoven, 2017
+% \item
+%   Mojtaba Farmani and Bert de Vries, A Probabilistic Approach To Hearing
+%   Loss Compensation, {\em IEEE Machine Learning for Signal Processing
+%   workshop} (MLSP), Reims, FR, Sep 2014
+% \item
+%   Bert de Vries et al., Efficient Hearing Aid Spectral Signal Processing
+%   with an Asynchronous Warped Filterbank, {\em Int'l Hearing Aid
+%   Research Conference} (IHCON), Lake Tahoe, CA, August 2014
+% \item
+%   Bert de Vries and Andrew Dittberner, Is Hearing Aid Signal Processing
+%   Ready for Machine Learning? {\em Int'l Symposium on Auditory and
+%   Audiological Research}, Nyborg, DK, Aug.~2013
+% \item
+%   Ungureanu C. et al., A Bayesian Network for Detection of Seizures,
+%   {\em 1st Jan Beneken Conference on Modeling and Simulation of Human
+%   Physiology}, Eindhoven, NL, 2013
+% \item
+%   Petkov P. et al., Discrete Choice Models for Non-Intrusive Quality
+%   Assessment, {\em Interspeech 2011}, Florence, Italy, 2011
+% \item
+%   Rob de Vries et al., A software suite for automatic beamforming
+%   calibration, {\em Int'l Hearing Aid Research Conference}, Lake Tahoe,
+%   CA, August 2010
+% \item
+%   S.I. Mossavat et al., A Bayesian hierarchical mixture of experts
+%   approach to estimate speech quality, {\em QoMEX 2010}, Trondheim,
+%   Norway, June 2010
+% \item
+%   Jos Leenen and Bert de Vries, Current DSP and Machine Learning Trends
+%   in the Hearing Aids Industry, {\em IEEE Benelux Signal Processing
+%   Symposium: Signal Processing for Digital Hearing Aids}, Delft, NL,
+%   April 2010
+% \item
+%   Xueru Zhang et al., Bayesian periodogram smoothing for speech
+%   enhancement, {\em European Symposium on Artificial Neural Networks
+%   (ESANN-09)}, Bruges, April 2009
+% \item
+%   Adriana Birlutiu et al., Towards hearing aid personalization:
+%   preference elicitation from audiological data, {\em Scientific
+%   ICT-Research Event Netherlands (SIREN)}, Amsterdam, Sep.~2008
+% \item
+%   Tjeerd Dijkstra et al., HearClip: an Application of Bayesian Machine
+%   Learning to Personalization of Hearing Aids, Presentation at
+%   {\em Dutch Society for Audiology Meeting}, Sep.~2008
+% \item
+%   Bert de Vries, Fast Model-Based Fitting through Active Data Selection,
+%   {\em Int'l Hearing Aid Research Conference}, Lake Tahoe, CA, August
+%   2008
+% \item
+%   Rolph Houben et al., Construction of a virtual subject response
+%   database to reduce subject testing, {\em Int'l Hearing Aid Research
+%   Conference}, Lake Tahoe, CA, August 2008
+% \item
+%   Bert de Vries et al., The Complexity of Hearing Aid Fitting, presented
+%   at {\em International Symposium on Auditory and Audiological Research
+%   2007}, Helsingor, Denmark, August 2007
+% \item
+%   Jos Leenen et al., Learning Volume Control for Hearing Aids, presented
+%   at {\em International Symposium on Auditory and Audiological Research
+%   2007}, Helsingor, Denmark, August 2007
+% \item
+%   Alexander Ypma et al., Bayesian Feature Selection for Hearing Aid
+%   Personalization, {\em MLSP-07}, Thessaloniki, Greece, 2007
+% \item
+%   Adriana Birlutiu et al., Personalization of Hearing Aids through
+%   Bayesian Preference Elicitation, {\em NIPS workshop on User Adaptive
+%   Systems}, Whistler, BC, Canada, December 2006
+% \item
+%   Bert de Vries et al., Bayesian Machine Learning for Personalization of
+%   Hearing Aid Algorithms, {\em Int'l Hearing Aid Research Conference},
+%   Lake Tahoe, CA, August 2006
+% \item
+%   Alexander Ypma, Bert de Vries and Job Geurts, Robust Volume Control
+%   Personalization from On-line Preference Feedback, {\em IEEE Int.
+%   Workshop on Machine Learning for Signal Processing}, Maynooth,
+%   Ireland, 2006
+% \item
+%   Bert de Vries, Tom M. Heskes and Tjeerd M. H. Dijkstra, Bayesian
+%   Incremental Utility Elicitation with Application to Hearing Aids
+%   Personalization, {\em Valencia/ISBA 8th World Meeting on Bayesian
+%   Statistics}, Benidorm, Spain, June 2006
+% \item
+%   Tjeerd M. H. Dijkstra et al., A Bayesian decision-theoretic framework
+%   for psychophysics, {\em Valencia/ISBA 8th World Meeting on Bayesian
+%   Statistics}, Benidorm, Spain, June 2006
+% \item
+%   Alexander Ypma, Bert de Vries and Job Geurts, A learning volume
+%   control that is robust to user inconsistency, {\em The second annual
+%   IEEE BENELUX/DSP Valley Signal Processing Symposium}, Antwerp, March
+%   2006
+% \item
+%   Paul Aelen et al., Electrohysterographic Estimation of the
+%   Intra-Uterine Pressure, {\em The second annual IEEE BENELUX/DSP Valley
+%   Signal Processing Symposium}, Antwerp, March 2006
+% \item
+%   Tom Heskes and Bert de Vries, Incremental Utility Elicitation for
+%   Adaptive Personalization, {\em The 17th Belgian-Dutch Conference on
+%   Artificial Intelligence}, Brussels, Belgium, October 2005
+% \item
+%   Bert de Vries and Rob de Vries, An Integrated Approach to Hearing Aid
+%   Algorithm Design, {\em Int'l Hearing Aid Research Conference}, Lake
+%   Tahoe, CA, August 2004
+% \item
+%   Harald Pobloth et al., Speech Coding for Wireless Communication in the
+%   Hearing Aid Environment, {\em Int'l Hearing Aid Research Conference},
+%   Lake Tahoe, CA, August 2004
+% \item
+%   Bert de Vries and Rob de Vries,An Integrated Approach to Hearing Aid
+%   Algorithm Design for Enhancement of Audibilit y, Intelligibility and
+%   Comfort, {\em IEEE Benelux Signal Processing Symposium}, Hilvarenbeek,
+%   Netherlands, April 2004
+% \item
+%   Rob de Vries and Bert de Vries, Toward SNR-Loss Restoration in Digital
+%   Hearing Aids, {\em ICASSP 2002}, Orlando, FL, May 2002
+% \item
+%   Bert de Vries, Jos Leenen, A Low Power Digital AGC Circuit for Dynamic
+%   Range Control of an A/D Converter, {\em International Hearing Aids
+%   Research (IHCON) Conference 2000}, Lake Tahoe (CA), August 2000
+% \item
+%   Lucas Parra, Clay Spence and Bert de Vries, Convolutive Blind Source
+%   Separation based on Multiple Decorrelation, {\em IEEE workshop on
+%   Neural Networks for Signal Processing VIII}, pp.23-32, Cambridge, UK,
+%   1998 {\bf {[}93{]}}
+% \item
+%   Bert de Vries, Blind Signal Processing for Hearing Aids, {\em NIH
+%   Hearing Aids Improvement Conference}, Bethesda, MA, May 1997
+% \item
+%   Bert de Vries, Adaptive Gamma Filters for Miniature Hearing Aids,
+%   {\em NIH Hearing Aids Improvement Conference}, Bethesda, MA, May 1997
+% \item
+%   Bert de Vries, Adaptive rank filtering based on error minimization,
+%   {\em ICASSP-97}, Munich, April 1997
+% \item
+%   Lucas Parra, Clay Spence, Bert De Vries, Convolutive Source Separation
+%   and Signal Modeling with Maximum Likelihood, {\em International
+%   Symposium on Intelligent Systems} (ISIS'97), Regio Calabria, Italy,
+%   1997
+% \item
+%   Q. Lin et al., Robust distant-talking speech recognition,
+%   {\em ICASSP-96}, Atlanta,GA, May 1996
+% \item
+%   Bert de Vries et al., Neural network speech enhancement for noise
+%   robust speech recognition, {\em International Workshop on Applications
+%   of Neural Networks to Telecommunications}, Sweden, May 1995
+% \item
+%   Lin et al., Experiments on distant-talking speech recognition,
+%   {\em ARPA Workshop on Spoken Language Technology}, Austin, TX, January
+%   1995
+% \item
+%   Qiguang Lin et al., System of microphone arrays and neural networks
+%   for robust speech recognition in multimedia environments, Proceedings
+%   {\em International Conference on Spoken Language Processing},
+%   Yokohama, Japan, September 1994
+% \item
+%   Bert de Vries, Gradient-based adaptation of network structure,
+%   {\em International Conference on Artificial Neural Networks 94},
+%   Sorrento, Italy, May 94
+% \item
+%   Che et al., Microphone Arrays and Neural Networks for Robust Speech
+%   Recognition, {\em ARPA Workshop on Human Language Technology},
+%   Princeton, NJ, March 1994
+% \item
+%   Bert de Vries et al., An application of Gamma delay lines to
+%   BDG-phoneme classification, {\em Government Microcircuit
+%   Applications Conference proceedings}, New Orleans, LA, November 1993
+% \item
+%   Bert de Vries, Time-varying neural networks for large tasks,
+%   {\em International Conference on Artificial Neural Networks
+%   proceedings}, Amsterdam, the Netherlands, September 13-16, 1993
+% \item
+%   J.C. Principe et al., Backpropagation through time with fixed memory
+%   size requirements, {\em Proceedings of Workshop on Neural Networks for
+%   Signal Processing}, Linthicum Heights, MD, USA, Sep.~1993
+% \item
+%   Bert de Vries et al.,Learning with target trajectory constraints for
+%   sequence classification tasks, {\em ICASSP-93}, Minneapolis, MN, April
+%   1993
+% \item
+%   Bert de Vries et al.,Short Term Memory Structures for Dynamic Neural
+%   Networks, {\em Asilomar-92} Conference proceedings, Pacific Grove, CA,
+%   1992
+% \item
+%   T. Oliveira a Silva et al., Generalized feedforward filters with
+%   complex poles, {\em Proceedings of the 1992 IEEE workshop on Neural
+%   Networks for Signal Processing}, Copenhagen, Denmark, 1992
+% \item
+%   Jyh-Ming Kuo, Jose Principe and Bert de Vries, Prediction of chaotic
+%   time series using recurrent networks, {\em Proc. of the 1992 IEEE
+%   workshop on Neural Networks for Signal Processing}, 1992
+% \item
+%   Jose Principe, Bert de Vries and Pedro G. de Oliveira, Generalized
+%   feedforward structures: a new class of adaptive filters,
+%   {\em ICASSP-92}, San Francisco, vol.~IV, pp.~245-248, 1992
+% \item
+%   T. Oliveira e Silva, P. Guedes de Oliveira, J. C. Principe and B. de
+%   Vries, A Complex Pole Extension to the Gamma Filter, {\em The INESC
+%   Journal of Research and Development}, vol.~3, no. 1, pp.~35-41,
+%   Jan./Jun.~1992
+% \item
+%   Bert de Vries et al., Adaline with adaptive recursive memory,
+%   {\em Proceedings IEEE workshop on signal processing}, Princeton, NJ,
+%   1991
+% \item
+%   Principe et al., Modeling applications with the focused gamma net,
+%   {\em NIPS-4 proceedings}, Denver, CO, 1992
+% \item
+%   Bert de Vries et al., Some practical issues concerning the gamma
+%   neural net, {\em Proceedings IJCNN-91}, Seattle, WA, 1991
+% \item
+%   Bert de Vries and Jose Principe, A theory for neural nets with time
+%   delays, {\em NIPS-3 Proceedings}, Denver, 1991 {\bf {[}63{]}}
+% \item
+%   Bert de Vries et al., Neural net models for temporal processing,
+%   {\em Proceedings nineth southern biom. eng. conference}, Miami, FL,
+%   1991
+% \item
+%   Bert de Vries et al., A new neural net model for temporal processing,
+%   {\em 12th ann. int. conf. IEEE on the eng. in medicine and biology
+%   society}, Philadelphia, PA, 1990
+% \item
+%   Bert de Vries et al., Artificial neural networks as a computational
+%   paradigm for detection of anaesthetic complications, {\em Computers in
+%   Anesthesia 10}, New Orleans, LA, 1989
+% \item
+%   Bert de Vries et al., Distribution of anesthesia related occurrences
+%   during surgical operations, {\em Anesthesiology review} 14 (6), 1987
+% \end{etaremune}
+\end{resume}
+\end{document}

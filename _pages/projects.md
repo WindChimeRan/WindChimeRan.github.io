@@ -1,0 +1,27 @@
+---
+layout: page
+title: projects
+permalink: /projects/
+description: Open-source projects and tools.
+nav: true
+nav_order: 3
+display_categories: []
+horizontal: false
+---
+
+<!-- pages/projects.md -->
+<div class="projects">
+
+<!-- Display projects without categories -->
+
+{% assign sorted_projects = site.projects | sort: "importance" %}
+
+  <!-- Generate cards for each project -->
+
+  <div class="row row-cols-1 row-cols-md-3">
+    {% for project in sorted_projects %}
+      {% include projects.liquid %}
+    {% endfor %}
+  </div>
+
+</div>
