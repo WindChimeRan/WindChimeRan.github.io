@@ -68,17 +68,13 @@ The two safety margins stack: 25–33% is reserved by the RAM cap, and a further
 ### llama.cpp
 **llama.cpp** sidesteps dynamic budget computation entirely. It uses the memory hint as its ceiling — `memory_hint - current_process_allocation` — with no RAM cap and no utilization target. Memory consumed by other apps is invisible; the engine has no system-wide pressure signal. On macOS 15+, a background thread requests buffer residency every 500 ms to prevent OS eviction, an acknowledgment that the OS may reclaim memory under pressure even after allocation succeeds.
 
-GPU memory is filled in three stages. First, **model weights**: the last N layers are offloaded to GPU (back-to-front); the rest stay on CPU. Second, the **KV cache**: fully preallocated at context creation — the user specifies a token capacity (`n_ctx`) and the entire buffer is allocated upfront. Third, a **compute scratch buffer**: a worst-case activation buffer sized for one micro-batch, reused on every forward pass.
-
-Unlike the paged designs above, llama.cpp's KV cache is contiguous. It operates in one of two modes. In *shared* mode (default), all sequences share a single ring buffer of size `n_ctx` — simpler and better utilized when sequence lengths vary, but attention masks must explicitly exclude other sequences' tokens. In *partitioned* mode, each sequence gets its own ring buffer of size `n_ctx / max_seqs`, providing strict isolation at the cost of rigid capacity per sequence. Total memory is identical in both modes:
+GPU memory is filled in three stages: **model weights** (last N layers offloaded to GPU, back-to-front), a **KV cache** (preallocated at a user-specified token capacity `n_ctx`), and a **compute scratch buffer** (worst-case activation buffer reused every forward pass). Unlike the paged designs above, llama.cpp's KV cache is contiguous — sequences share a ring buffer with 1-token granularity and an explicit defrag pass. Total KV memory is committed at startup:
 
 $$
 \text{KV}_{\text{total}} = n_{\text{kv_layers}} \times 2 \times n_{\text{kv_heads}} \times d_{\text{head}} \times n_{\text{ctx}} \times \text{dtype_size}
 $$
 
-Each layer's K and V tensors are placed on the same device as that layer's weights. Slot management uses 1-token granularity with a ring buffer head pointer per partition, and an explicit defrag pass handles fragmentation. There is no paging and no dynamic resizing — the entire KV budget is committed at startup.
-
-The common thread: none of these engines have a memory allocation strategy designed for a shared-memory desktop environment. vLLM assumes exclusive ownership of a discrete memory pool. mistral.rs adds Apple Silicon-specific caps but mixes two different memory ceilings in ways that are either overly conservative or, when the ceilings disagree, insufficiently conservative. llama.cpp pre-commits a user-specified amount and hopes it fits. A solution for Apple Silicon needs to handle both the mixed-use desktop case (other apps are running) and the dedicated server case (the machine is yours), ideally without requiring the user to manually tune a single magic number.
+The common thread: these engines were designed for different deployment contexts, and none of them target the shared-memory desktop case that vllm-metal needs to handle. vLLM assumes exclusive ownership of a discrete memory pool. mistral.rs introduces Apple Silicon-specific caps with stacked safety margins. llama.cpp pre-commits a user-specified amount with no system-wide awareness. A solution for Apple Silicon needs to handle both the mixed-use desktop case (other apps are running) and the dedicated server case (the machine is yours), ideally without requiring the user to manually tune a single magic number.
 
 ---
 
