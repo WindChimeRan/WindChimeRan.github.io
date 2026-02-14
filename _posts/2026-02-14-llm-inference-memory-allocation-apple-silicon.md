@@ -23,6 +23,12 @@ This post describes the problem in detail, surveys related work, and proposes a 
 
 ---
 
+## Why vllm-metal
+
+A quick cost-of-memory comparison helps explain the motivation. An NVIDIA RTX 5090 ships with 32 GB of GDDR7 at a $1,999 MSRP — roughly **$62.47 per GB**. A Mac Studio with the M3 Ultra and 512 GB of unified memory starts at $9,499 — roughly **$18.55 per GB**, more than 3× cheaper. For large models whose primary bottleneck is "does the working set fit in memory," Apple Silicon offers a surprisingly economical option. This is, of course, not an apple-to-Apple comparison (😉): CUDA VRAM is dedicated and faster, while unified memory is shared with the rest of the system and comes with lower bandwidth — which is precisely why the memory *allocator* matters so much on this platform.
+
+---
+
 ## Related Work
 
 We first review vLLM's memory allocation on CUDA as the baseline design — it is the upstream that [vllm-metal](https://github.com/vllm-project/vllm-metal) adapts from. We then examine how mistral.rs and llama.cpp, both with native Metal support, approach the same problem on Apple Silicon. To compare them clearly, we use a common vocabulary:
@@ -43,36 +49,21 @@ $$
 This design assumes dedicated VRAM that the process can monopolize. On Apple Silicon, there is no dedicated VRAM — "GPU memory" is system RAM shared with everything else, so claiming 90% of the total is not realistic for desktop use.
 
 ### mistral.rs
-**mistral.rs** adapts the same two-phase approach for Apple Silicon but introduces a RAM cap to leave room for the OS, browsers, and editors sharing the same memory pool:
+**mistral.rs** adapts the same two-phase approach for Apple Silicon but introduces a RAM cap to leave room for the OS and other applications sharing the same memory pool:
 
 $$
 \text{ram_cap} = \begin{cases} \text{system_ram} \times 2/3 & \text{if } \text{system_ram} \leq 36\text{ GB} \\\\ \text{system_ram} \times 3/4 & \text{otherwise} \end{cases}
 $$
 
-The intent is reasonable, but the cap is applied inconsistently between the two phases.
+In **Phase 1 (model weights)**, mistral.rs uses the memory hint directly — `memory_hint - current_process_allocation` — reserving `max(available × 0.02, 512 MB)` as headroom, then greedily places layers on GPU until the budget is exhausted.
 
-In **Phase 1 (model weights)**, mistral.rs uses the memory hint directly (no cap). It queries `memory_hint - current_process_allocation` as available memory, reserves `max(available × 0.02, 512 MB)` as headroom, then greedily places layers on GPU until the budget is exhausted.
-
-In **Phase 2 (KV cache)**, the RAM cap enters the picture. The engine derives `used` as `min(memory_hint, ram_cap) - (memory_hint - current_process_allocation)` — note that the first term is capped while the second is not. The KV budget is:
+In **Phase 2 (KV cache)**, the effective ceiling becomes `min(memory_hint, ram_cap)`. Since Apple typically reports a memory hint in the 66–75% range of system RAM — close to what the RAM cap already computes — the `min()` often selects the same value. The KV budget is then:
 
 $$
 \text{kv_budget} = \min(\text{memory_hint},\; \text{ram_cap}) \times \text{utilization} - \text{used}
 $$
 
-When `memory_hint ≈ ram_cap`, the capped and uncapped values are consistent and the formula works — though two safety margins stack (25–33% from the RAM cap, plus 10% from the utilization target), leaving ~32–40% of RAM reserved. When `memory_hint > ram_cap`, the uncapped free value is larger than it should be relative to the capped total, so `used` underestimates actual allocation and the KV budget inflates. On a 48 GB Mac with a 14 GB model:
-
-```
-memory_hint = 45 GB,  ram_cap = 36 GB
-
-min(memory_hint, ram_cap)           = 36 GB    ← capped
-memory_hint - current_allocation    = 31 GB    ← uncapped
-used = 36 - 31                      =  5 GB    ← should be 14 GB
-
-kv_budget = 36 × 0.9 - 5 = 27.4 GB
-total GPU = 14 + 27.4     = 41.4 GB  (86% of RAM)
-```
-
-The 9 GB gap between the two ceilings (45 − 36) leaks directly into the KV budget as phantom free memory.
+The two safety margins stack: 25–33% is reserved by the RAM cap, and a further 10% by the utilization target (default 0.9), leaving roughly 60–68% of system RAM as the effective ceiling before model weights are subtracted.
 
 ### llama.cpp
 **llama.cpp** sidesteps dynamic budget computation entirely. It uses the memory hint as its ceiling — `memory_hint - current_process_allocation` — with no RAM cap and no utilization target. Memory consumed by other apps is invisible; the engine has no system-wide pressure signal. On macOS 15+, a background thread requests buffer residency every 500 ms to prevent OS eviction, an acknowledgment that the OS may reclaim memory under pressure even after allocation succeeds.
