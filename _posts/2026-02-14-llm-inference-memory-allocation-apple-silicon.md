@@ -39,7 +39,7 @@ To compare the three engines below, we use a common vocabulary:
 - **utilization target**: the fraction of the memory budget an engine attempts to claim (e.g., 0.9 means "use up to 90%").
 
 ### vLLM
-**vLLM** follows a profile-and-claim strategy. On CUDA, it queries the GPU for total and free VRAM at startup, then claims `total_vram × utilization_target` (default 0.9). If the requested amount exceeds what is actually free (because another process is already using the GPU), vLLM fails immediately rather than proceeding with a smaller budget. The claimed memory is managed as a paged block pool (PagedAttention), where KV cache blocks are allocated and freed at page granularity as requests arrive and leave.
+**[vLLM](https://github.com/vllm-project/vllm)** follows a profile-and-claim strategy. On CUDA, it queries the GPU for total and free VRAM at startup, then claims `total_vram × utilization_target` (default 0.9). If the requested amount exceeds what is actually free (because another process is already using the GPU), vLLM fails immediately rather than proceeding with a smaller budget. The claimed memory is managed as a paged block pool (PagedAttention), where KV cache blocks are allocated and freed at page granularity as requests arrive and leave.
 
 GPU memory is filled in two stages. First, **model weights** are loaded onto the GPU. vLLM then runs a profiling forward pass with dummy inputs to measure peak non-KV memory usage (activations, temporaries). The remaining memory — `total_vram × utilization_target - weight_memory - profile_peak` — becomes the KV block pool:
 
@@ -48,7 +48,7 @@ $$
 $$
 
 ### mistral.rs
-**mistral.rs** adapts the same two-phase approach for Apple Silicon but introduces a RAM cap to leave room for the OS and other applications sharing the same memory pool:
+**[mistral.rs](https://github.com/EricLBuehler/mistral.rs)** adapts the same two-phase approach for Apple Silicon but introduces a RAM cap to leave room for the OS and other applications sharing the same memory pool:
 
 $$
 \text{ram_cap} = \begin{cases} \text{system_ram} \times 2/3 & \text{if } \text{system_ram} \leq 36\text{ GB} \\\\ \text{system_ram} \times 3/4 & \text{otherwise} \end{cases}
@@ -65,7 +65,7 @@ $$
 The two safety margins stack: 25–33% is reserved by the RAM cap, and a further 10% by the utilization target (default 0.9), leaving roughly 60–68% of system RAM as the effective ceiling before model weights are subtracted.
 
 ### llama.cpp
-**llama.cpp** uses the memory hint as its ceiling, `memory_hint - current_process_allocation`, with no RAM cap and no utilization target. Memory consumed by other apps is invisible; the engine has no system-wide pressure signal. On macOS 15+, a background thread requests buffer residency every 500 ms to prevent OS eviction, an acknowledgment that the OS may reclaim memory under pressure even after allocation succeeds.
+**[llama.cpp](https://github.com/ggml-org/llama.cpp)** uses the memory hint as its ceiling, `memory_hint - current_process_allocation`, with no RAM cap and no utilization target. Memory consumed by other apps is invisible; the engine has no system-wide pressure signal. On macOS 15+, a background thread requests buffer residency every 500 ms to prevent OS eviction, an acknowledgment that the OS may reclaim memory under pressure even after allocation succeeds.
 
 GPU memory is filled in three stages: **model weights** (last N layers offloaded to GPU, back-to-front), a **KV cache** (preallocated at a user-specified token capacity `n_ctx`), and a **compute scratch buffer** (worst-case activation buffer reused every forward pass). Unlike the paged designs above, llama.cpp's KV cache is contiguous — sequences share a ring buffer with 1-token granularity and an explicit defrag pass. Total KV memory is committed at startup:
 
@@ -79,11 +79,11 @@ vLLM assumes exclusive ownership of a discrete memory pool. mistral.rs introduce
 
 ## vllm-metal Status Quo
 
-vllm-metal exposes two KV cache strategies, selectable via the `VLLM_METAL_USE_PAGED_ATTENTION` environment variable. **Path 1 (contiguous allocation, MLX)** is the default and is production-ready today. **Path 2 (paged allocation, vLLM)** is under active development on the `paged-attention-v3` branch ([vllm-metal#70](https://github.com/vllm-project/vllm-metal/issues/70)). Both paths are tracked together in [vllm-metal#97](https://github.com/vllm-project/vllm-metal/issues/97). The challenge is that they currently share allocation and scheduling code written with Path 2's paged assumptions, creating a mismatch for Path 1's contiguous runtime.
+vllm-metal has two KV cache paths. **Path 1 (contiguous allocation, MLX)** is the current default. **Path 2 (paged allocation, vLLM)** is under active development on the `paged-attention-v3` branch ([vllm-metal#70](https://github.com/vllm-project/vllm-metal/issues/70)). Both are tracked in [vllm-metal#97](https://github.com/vllm-project/vllm-metal/issues/97). This proposal introduces a `VLLM_METAL_USE_PAGED_ATTENTION` environment variable to select between them. Today, both paths share allocation and scheduling code written with legacy Path 2's paged assumptions, creating a mismatch for Path 1's contiguous runtime.
 
 ### Path 1: Contiguous Allocation (MLX)
 
-The current implementation tangles Path 1 with legacy, half-baked paged attention memory calculations. The scheduler reasons in 16-token blocks and reports phantom block counts, but MLX allocates contiguous caches in 256-token steps. None of those blocks exist at runtime. The fix is a straightforward refactor: strip out the paged bookkeeping and fall back to mlx_lm's original contiguous design, where `make_prompt_cache()` manages per-request caches and `VLLM_METAL_MEMORY_FRACTION` controls the memory ceiling.
+The current implementation tangles Path 1 with legacy, half-baked paged attention memory calculations. The scheduler reasons in 16-token blocks and reports phantom block counts, but MLX allocates contiguous caches in 256-token steps. None of those blocks exist at runtime. The fix is a straightforward refactor: strip out the paged bookkeeping and fall back to mlx_lm's original contiguous design, where `make_prompt_cache()` manages per-request caches.
 
 ### Path 2: Paged Allocation (vLLM)
 
@@ -115,9 +115,7 @@ $$
 \text{kv_budget} = \text{inference_budget} - \text{weight_memory} - \text{profile_peak}
 $$
 
-This formula applies to both paths: it caps the total contiguous cache footprint in Path 1, and it sizes the block pool in Path 2.
-
-The tiered reserve is the default, designed for Macs running other applications alongside inference. For dedicated servers, `VLLM_METAL_OS_RESERVE=2` (in GB) replaces the tier lookup with an explicit 2 GB reserve. An environment variable, not a CLI flag, matches vllm-metal's existing configuration pattern (`VLLM_METAL_PREFIX_CACHE`, etc.).
+If the KV budget is zero or negative, the model does not fit within the inference budget. Following upstream vLLM's behavior, the engine should refuse to start and log an explicit message: either free memory, or set `VLLM_METAL_OS_RESERVE` to a smaller value. The tiered reserve is the default, designed for Macs running other applications alongside inference. For dedicated servers, `VLLM_METAL_OS_RESERVE=2` (in GB) replaces the tier lookup with an explicit 2 GB reserve. An environment variable, not a CLI flag, matches vllm-metal's existing configuration pattern (`VLLM_METAL_PREFIX_CACHE`, etc.).
 
 ### Lesson from mistral.rs: The Wired Collector
 
