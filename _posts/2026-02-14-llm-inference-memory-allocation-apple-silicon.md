@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "[Proposal] Rethinking vllm-metal's Memory Budget for Apple Silicon"
+title: "Rethinking vllm-metal's Memory Budget for Apple Silicon"
 date: 2026-02-14 10:00:00-0000
 description: "Exploring memory allocation strategies for LLM inference engines on Apple Silicon's unified memory architecture."
-tags: [LLM, inference, Apple Silicon, memory, systems]
+tags: [LLM, inference, Apple Silicon, systems, proposal]
 categories: [research]
 giscus_comments: false
 related_posts: false

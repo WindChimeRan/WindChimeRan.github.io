@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-New blog post: [LLM Inference Engine's Memory Allocation on Apple Silicon](/blog/2026/llm-inference-memory-allocation-apple-silicon/).
+New blog post: [Rethinking vllm-metal's Memory Budget for Apple Silicon](/blog/2026/llm-inference-memory-allocation-apple-silicon/).
