@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "LLM Inference Engine's Memory Allocation on Apple Silicon"
+title: "[Proposal] Rethinking vllm-metal's Memory Budget for Apple Silicon"
 date: 2026-02-14 10:00:00-0000
 description: "Exploring memory allocation strategies for LLM inference engines on Apple Silicon's unified memory architecture."
 tags: [LLM, inference, Apple Silicon, memory, systems]
