@@ -17,7 +17,8 @@ LLM inference engines like [vLLM](https://github.com/vllm-project/vllm) were des
 
 This assumption breaks on Apple Silicon. The M-series chips use a Unified Memory Architecture (UMA): CPU, GPU, and Neural Engine all share a single physical memory pool. There is no dedicated "VRAM" to claim. A Mac running [vllm-metal](https://github.com/vllm-project/vllm-metal) is likely also running a browser, an IDE, and other applications — all competing for the same memory. Reserving 90% of total memory is not realistic in this scenario.
 
-But the problem isn't just about lowering a threshold. We also want to support the case where a Mac *is* used as a dedicated inference server with no other significant memory consumers. And beneath the `gpu_memory_utilization` question lies a deeper architectural mismatch: the current memory allocation logic conflates two very different KV cache strategies, contiguous allocation (what MLX actually does) and paged blocks (what the scheduler thinks is happening), producing phantom block counts that don't correspond to any real memory layout.
+But the problem isn't just about lowering a threshold. We also want to support the case where a Mac *is* used as a dedicated inference server with no other significant memory consumers. 
+<!-- And beneath the `gpu_memory_utilization` question lies a deeper architectural mismatch: the current memory allocation logic conflates two very different KV cache strategies, contiguous allocation (what MLX actually does) and paged blocks (what the scheduler thinks is happening), producing phantom block counts that don't correspond to any real memory layout. -->
 
 The discussion tracks [vllm-metal#97](https://github.com/vllm-project/vllm-metal/issues/97).
 
@@ -76,32 +77,28 @@ vLLM assumes exclusive ownership of a discrete memory pool. mistral.rs introduce
 
 ---
 
+## vllm-metal status quo
+
+https://github.com/vllm-project/vllm-metal/issues/97
+
+path 1: mlx_lm contiguous allocation. This is the current implementation. should keep it simple and inherent the mlx_lm design.
+
+path 2: vllm paged allocation. This is the proposed new implementation. The design should be aligned with vllm's paged allocation.
+
+we need a clean refactor for the path 1, and a new design for the path 2. 
+
 ## My Proposal
 
-### Key Idea
+concern 1. gpu_memory_utilization=0.9 the original vllm semantic is 0.9 of the total gpu memory. But for apple silicon, we need to save some room for os and other app. I don't want to set it as 0.9 of avaiable memory - mix the meaning of total memory vs available memory. This is confusing. 
 
-[TODO: One-sentence summary of your proposed memory allocation strategy]
+concern 2. use portion of available memory is not good for mac. e.g.,  16GB, 32GB, 256GB, 512GB. saving 10% of 512 is overkill, while saving 10% of 16GB might be too little when the user have youtube playing. 
 
-### Design
+lesson learned from mistral.rs: 
+https://github.com/EricLBuehler/mistral.rs/issues/1348
 
-[TODO: Architecture overview — how the allocator works at a high level]
+sudo sysctl iogpu.disable_wired_collector=1
 
-[TODO: Diagram placeholder — memory layout / allocation flow]
+On Apple Silicon Macs, the CPU and GPU share unified memory. macOS has a mechanism that actively reclaims wired (non-pageable) memory that was allocated to the GPU when the system is under memory pressure — this is the "wired collector."
+Setting iogpu.disable_wired_collector=1 tells macOS: don't reclaim GPU wired memory, even when the system wants that memory back.
 
-### Implementation Details
-
-[TODO: Specific techniques — e.g., memory pool design, KV cache placement, prefetching strategy]
-
-[TODO: How it integrates with existing engines (llama.cpp / MLX)]
-
-### Preliminary Results
-
-[TODO: Any benchmarks, measurements, or expected improvements]
-
-[TODO: Comparison with baseline approaches]
-
----
-
-## Next Steps
-
-[TODO: What comes next — further experiments, open questions, call for feedback]
+the setting does not persist across reboots unless you add them to a startup script.
