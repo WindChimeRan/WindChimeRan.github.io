@@ -77,50 +77,26 @@ vLLM assumes exclusive ownership of a discrete memory pool. mistral.rs introduce
 
 ---
 
-## vllm-metal Status Quo
+## Proposal
 
-vllm-metal has two KV cache paths. **Path 1 (contiguous allocation, MLX)** is the current default. **Path 2 (paged allocation, vLLM)** is under active development on the `paged-attention-v3` branch ([vllm-metal#70](https://github.com/vllm-project/vllm-metal/issues/70)). Both are tracked in [vllm-metal#97](https://github.com/vllm-project/vllm-metal/issues/97). This proposal introduces a `VLLM_METAL_USE_PAGED_ATTENTION` environment variable to select between them. Today, both paths share allocation and scheduling code written with legacy Path 2's paged assumptions, creating a mismatch for Path 1's contiguous runtime.
+vllm-metal has two KV cache paths, selected by `VLLM_METAL_USE_PAGED_ATTENTION`. Both are tracked in [vllm-metal#97](https://github.com/vllm-project/vllm-metal/issues/97).
 
 ### Path 1: Contiguous Allocation (MLX)
 
-The current implementation tangles Path 1 with legacy, half-baked paged attention memory calculations. The scheduler reasons in 16-token blocks and reports phantom block counts, but MLX allocates contiguous caches in 256-token steps. None of those blocks exist at runtime. The fix is a straightforward refactor: strip out the paged bookkeeping and fall back to mlx_lm's original contiguous design, where `make_prompt_cache()` manages per-request caches.
+Today, the scheduler reasons in 16-token blocks and reports phantom block counts, but MLX allocates contiguous caches in 256-token steps. None of those blocks exist at runtime. The fix is to strip the paged bookkeeping and use mlx_lm's `auto` behavior: each request allocates only the KV cache memory it needs via `make_prompt_cache()` and releases it when done. No upfront budget, no utilization target.
 
 ### Path 2: Paged Allocation (vLLM)
 
-Path 2 would align with upstream vLLM's PagedAttention, maintaining a global block pool backed by Metal buffers. The same profile-and-claim strategy described in the Related Work section would apply: measure weight and activation memory at startup, then fill the remaining budget with KV blocks. The block pool's design depends on kernel work still in progress on the `paged-attention-v3` branch.
-
----
-
-## Proposal: Tiered OS Reserve
-
-Upstream vLLM's `gpu_memory_utilization=0.9` means "claim 90% of total GPU memory." On a discrete GPU with dedicated VRAM, this is safe because the only other consumer is the driver. Redefining it as a fraction of *available* system memory does not help: does 0.9 mean 90% of total RAM, or 90% of what happens to be free right now? The parameter is inherently confusing on UMA and vllm-metal should drop it entirely. A flat percentage also scales poorly. Reserving 10% of 16 GB leaves 1.6 GB for the OS and a browser; reserving 10% of 512 GB withholds 51.2 GB. OS overhead does not grow linearly with total RAM.
-
-The alternative is to subtract a fixed, tier-based amount from system RAM before any utilization arithmetic begins:
+Path 2 is under active development on the `paged-attention-v3` branch ([vllm-metal#70](https://github.com/vllm-project/vllm-metal/issues/70)). It maintains a global block pool backed by Metal buffers, aligned with upstream vLLM's PagedAttention. `VLLM_METAL_MEMORY_FRACTION` controls how much system RAM the pool claims. At startup, the engine measures weight and activation memory, then fills the remaining budget with KV blocks:
 
 $$
-\text{os_reserve} = \begin{cases} 4\text{ GB} & \text{if } \text{system_ram} \leq 16\text{ GB} \\\\ 6\text{ GB} & \text{if } \text{system_ram} \leq 64\text{ GB} \\\\ 8\text{ GB} & \text{if } \text{system_ram} \leq 128\text{ GB} \\\\ 12\text{ GB} & \text{otherwise} \end{cases}
+\text{kv_budget} = \text{system_ram} \times \text{VLLM_METAL_MEMORY_FRACTION} - \text{weight_memory} - \text{profile_peak}
 $$
 
-At the tier boundaries, the reserved fraction decreases: 25% on a 16 GB machine, 9.4% on 64 GB, 6.3% on 128 GB, 2.3% on 512 GB.
+On a dedicated inference server, set the fraction high. On a desktop Mac sharing memory with a browser, IDE, and other applications, the fraction that is actually free will be lower. If the requested allocation exceeds free memory, the engine refuses to start and reports the available memory and the fraction the user would need to set. An environment variable (not a CLI flag) matches vllm-metal's existing configuration pattern (`VLLM_METAL_PREFIX_CACHE`, etc.).
 
-The remaining memory after the OS reserve is the **inference budget**:
+#### The Wired Collector
 
-$$
-\text{inference_budget} = \text{system_ram} - \text{os_reserve}
-$$
+macOS distinguishes between pageable memory (swappable to disk) and wired memory (pinned in physical RAM). Metal GPU buffers are wired. Under memory pressure, macOS invokes the **wired collector**, a kernel mechanism that reclaims GPU wired memory by evicting Metal buffers, causing silent performance degradation or crashes.
 
-The KV cache budget is the inference budget minus what the model itself consumes:
-
-$$
-\text{kv_budget} = \text{inference_budget} - \text{weight_memory} - \text{profile_peak}
-$$
-
-If the KV budget is zero or negative, the model does not fit within the inference budget. Following upstream vLLM's behavior, the engine should refuse to start and log an explicit message: either free memory, or set `VLLM_METAL_OS_RESERVE` to a smaller value. The tiered reserve is the default, designed for Macs running other applications alongside inference. For dedicated servers, `VLLM_METAL_OS_RESERVE=2` (in GB) replaces the tier lookup with an explicit 2 GB reserve. An environment variable, not a CLI flag, matches vllm-metal's existing configuration pattern (`VLLM_METAL_PREFIX_CACHE`, etc.).
-
-### Lesson from mistral.rs: The Wired Collector
-
-macOS distinguishes between pageable memory (which can be swapped to disk under pressure) and wired memory (which is pinned in physical RAM). Metal GPU buffers are wired. When the system comes under memory pressure, macOS invokes the **wired collector**, a kernel mechanism that reclaims GPU wired memory by evicting Metal buffers, causing silent performance degradation or crashes with no warning visible to the application.
-
-The mistral.rs community discovered and documented this behavior in [mistral.rs#1348](https://github.com/EricLBuehler/mistral.rs/issues/1348). The workaround is a single sysctl: `sudo sysctl iogpu.disable_wired_collector=1`, which tells the kernel not to reclaim GPU wired memory even under pressure. The setting does not persist across reboots unless added to a startup script.
-
-The tiered OS reserve reduces wired collector risk by leaving headroom below the pressure threshold. For dedicated servers configured with a minimal reserve via `VLLM_METAL_OS_RESERVE`, documenting `iogpu.disable_wired_collector=1` as a companion setting is prudent.
+The mistral.rs community documented this behavior in [mistral.rs#1348](https://github.com/EricLBuehler/mistral.rs/issues/1348). The workaround: `sudo sysctl iogpu.disable_wired_collector=1`. The setting does not persist across reboots unless added to a startup script. For dedicated servers running Path 2 with an aggressive memory fraction, disabling the wired collector is recommended.
