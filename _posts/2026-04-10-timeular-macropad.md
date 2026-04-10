@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "I turned my Timeular Tracker into a macOS macropad"
-date: 2026-04-10 10:00:00-0000
+date: 2026-04-10 00:00:00-0000
 description: "Flipping an 8-sided dice to switch macOS desktops, built end to end with Claude Opus."
 tags: [hardware, macOS, Swift, Claude, hack]
 categories: [side-projects]
