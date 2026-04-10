@@ -11,11 +11,11 @@ related_posts: false
 
 Show and tell time.
 
-<div class="row">
-  <div class="col-sm-6 mt-3 mt-md-0">
+<div class="row justify-content-center">
+  <div class="col-md-3 col-6">
     {% include figure.liquid path="assets/img/timeular-tracker.png" class="img-fluid rounded z-depth-1" %}
   </div>
-  <div class="col-sm-6 mt-3 mt-md-0">
+  <div class="col-md-3 col-6">
     {% include figure.liquid path="assets/img/timeular-menubar.png" class="img-fluid rounded z-depth-1" %}
   </div>
 </div>
