@@ -11,10 +11,7 @@ related_posts: false
 
 Show and tell time.
 
-<div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-  <img src="/assets/img/timeular-tracker.png" alt="Timeular Tracker on desk" style="max-width: 250px; height: auto; border-radius: 6px;" />
-  <img src="/assets/img/timeular-menubar.png" alt="Menu bar UI" style="max-width: 250px; height: auto; border-radius: 6px;" />
-</div>
+![Timeular Tracker as macOS macropad](/assets/img/timular.png)
 
 ## What it does
 
