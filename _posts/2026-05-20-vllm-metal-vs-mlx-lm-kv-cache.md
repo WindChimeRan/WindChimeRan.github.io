@@ -76,6 +76,8 @@ The cliff is a property of the cache shape.
 | vllm-metal | 8 | 100/100 | 612 | 54.8 | 107.2 |
 | vllm-metal | 16 | 100/100 | 736 | 73.8 | 80.4 |
 
+<div style="margin-top: 1.5em;"></div>
+
 SiliconBench is our benchmark harness for local LLM inference engines on Apple Silicon. It sends 100 prompts to each engine's OpenAI-compatible API at three concurrency levels: c=1, 8, and 16, where c is the number of in-flight requests. The chat split is single-turn; the agent split is multi-turn material averaging ~4K input tokens per prompt.
 
 At c=1 mlx_lm is faster on both splits. By c=8 the data structure pays off: vllm-metal scales while mlx_lm flattens on chat and collapses on agent.
