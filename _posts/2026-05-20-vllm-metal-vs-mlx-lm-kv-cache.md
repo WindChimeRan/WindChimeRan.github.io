@@ -98,5 +98,7 @@ All three MLX-based stacks (mlx_lm, omlx, vllm-mlx) converge at the same MLX cal
 | llama.cpp | yes (mask-based) | 3D per-stream ring buffer |
 | vllm-metal | yes (`cu_seqlens`) | 3D flat `[total_tokens, H, D]` |
 
+<div style="margin-top: 1.5em;"></div>
+
 Of the five stacks audited, vllm-metal is the only one that pairs `cu_seqlens`-based varlen with a flat 3D KV layout. On NVIDIA this pairing is the de facto serving pattern. Both vLLM and SGLang use it in production. Apple Silicon hasn't shipped the same pattern until recently: vllm-metal 0.2.0 (April 2026) is the first end-to-end serving framework on Apple Silicon to ship paged varlen attention. The data-structure choice each stack makes is what shows up at concurrency in the benchmark above.
 
