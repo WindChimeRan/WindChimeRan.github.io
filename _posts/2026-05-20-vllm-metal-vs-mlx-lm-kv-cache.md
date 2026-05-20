@@ -54,7 +54,7 @@ The cliff is a property of the cache shape.
 
 <p align="center"><em>Output throughput (Qwen3-0.6B BF16) on SiliconBench's chat and agent splits at concurrency 1, 8, 16. Hatched mlx_lm bars on the agent split mark partial-success runs (X/100 prompts returned a non-empty completion).</em></p>
 
-**chat split**
+**chat split** (~1K input, max output 256)
 
 | Engine | c | Success | TTFT p50 (ms) | Throughput (tok/s) | Wall (s) |
 |---|---:|---:|---:|---:|---:|
@@ -67,7 +67,7 @@ The cliff is a property of the cache shape.
 
 <div style="margin-top: 1.5em;"></div>
 
-**agent split**
+**agent split** (~4K input, max output 256)
 
 | Engine | c | Success | TTFT p50 (ms) | Throughput (tok/s) | Wall (s) |
 |---|---:|---:|---:|---:|---:|
@@ -80,7 +80,7 @@ The cliff is a property of the cache shape.
 
 <div style="margin-top: 1.5em;"></div>
 
-SiliconBench is our benchmark harness for local LLM inference engines on Apple Silicon. It sends 100 prompts to each engine's OpenAI-compatible API at three concurrency levels: c=1, 8, and 16, where c is the number of in-flight requests. The chat split is single-turn; the agent split is multi-turn material averaging ~4K input tokens per prompt.
+SiliconBench is our benchmark harness for local LLM inference engines on Apple Silicon. It sends 100 prompts to each engine's OpenAI-compatible API at three concurrency levels: c=1, 8, and 16, where c is the number of in-flight requests. The chat split is single-turn; the agent split is multi-turn material.
 
 At c=1 mlx_lm is faster on both splits. By c=8 the data structure pays off: vllm-metal scales while mlx_lm flattens on chat and collapses on agent.
 
