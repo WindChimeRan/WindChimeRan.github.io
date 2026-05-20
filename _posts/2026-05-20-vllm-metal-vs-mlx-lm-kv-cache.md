@@ -65,6 +65,8 @@ The cliff is a property of the cache shape.
 | vllm-metal | 8 | 100/100 | 133 | 145.5 | 31.5 |
 | vllm-metal | 16 | 100/100 | 183 | 190.8 | 24.1 |
 
+<div style="margin-top: 1.5em;"></div>
+
 **agent split**
 
 | Engine | c | Success | TTFT p50 (ms) | Throughput (tok/s) | Wall (s) |
