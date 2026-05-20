@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "vllm-metal vs mlx_lm: Contiguous vs Paged Varlen KV Cache"
+date: 2026-05-20 10:00:00-0000
 description: "Why we replaced mlx_lm's attention layer with paged varlen attention driven by the vLLM scheduler, and the deployment cliff that motivates it."
 tags: [LLM, inference, Apple Silicon, systems, vllm-metal]
 categories: [research]
@@ -9,8 +10,6 @@ related_posts: false
 toc:
   beginning: true
 ---
-
-*Draft.*
 
 ## The one layer we replaced
 
