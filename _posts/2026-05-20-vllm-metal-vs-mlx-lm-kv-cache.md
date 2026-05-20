@@ -28,9 +28,9 @@ This is a deployment cliff: identical code, no OOM, no warning, just silently sl
 
 ## The one layer we replaced
 
-The cliff lives in attention. vllm-metal is a vLLM plugin for Apple Silicon: at the model level it reuses mlx_lm's weight loader, RMSNorm, Linear, MoE, and MLP layers; anything that is not the attention layer is mlx_lm code. The single thing we replaced is attention. Above the model, the scheduler is vLLM's.
+The cliff lives in attention. vllm-metal is a vLLM plugin for Apple Silicon: at the model level it reuses mlx_lm's weight loader, RMSNorm, Linear, MoE, and MLP layers. All of these are token-wise. They operate on each token independently and don't care whether tokens are batched as a `[B, T]` padded rectangle or flattened to a `[total_tokens]` varlen strip. Attention is the only layer that needs to know about sequence boundaries; that is the one we replaced. Above the model, the scheduler is vLLM's.
 
-mlx_lm uses flash-style attention over a contiguous, left-padded KV cache shaped `[B, H, T, D]` (B = batch size, H = number of KV heads, T = sequence length uniform across the batch, D = head dim), consumed by MLX's stock `scaled_dot_product_attention`. vllm-metal uses flash-style attention over a paged KV cache laid out as `[total_tokens, H, D]`: tokens from every sequence packed onto a single flat token dimension, with `cu_seqlens` marking sequence boundaries. The vLLM scheduler drives this layout. Same MLP, different attention.
+mlx_lm uses flash-style attention over a contiguous, left-padded KV cache shaped `[B, H, T, D]` (B = batch size, H = number of KV heads, T = sequence length uniform across the batch, D = head dim), consumed by MLX's stock `scaled_dot_product_attention`. vllm-metal uses flash-style attention over a paged KV cache laid out as `[total_tokens, H, D]`: tokens from every sequence are packed onto a single flat token dimension, with `cu_seqlens` marking sequence boundaries. mlx_lm's cache is 4D; vllm-metal's view is 3D, with the `[B, T]` axes collapsed into a single `[total_tokens]` axis. The vLLM scheduler drives the varlen layout. Same MLP, different attention.
 
 ## Why the cliff exists, and what vllm-metal does instead
 
