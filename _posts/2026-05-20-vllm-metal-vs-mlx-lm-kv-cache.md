@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "vllm-metal vs mlx_lm: Contiguous vs Paged Varlen KV Cache"
-date: 2026-05-20 10:00:00-0000
+date: 2026-05-20 00:00:00-0000
 description: "Why we replaced mlx_lm's attention layer with paged varlen attention driven by the vLLM scheduler, and the deployment cliff that motivates it."
 tags: [LLM, inference, Apple Silicon, systems, vllm-metal]
 categories: [research]
@@ -89,4 +89,18 @@ SiliconBench is our benchmark harness for local LLM inference engines on Apple S
 At c=1 mlx_lm is faster on both splits. By c=8 the data structure pays off: vllm-metal scales while mlx_lm flattens on chat and collapses on agent.
 
 The agent split also exposes a reliability cliff. mlx_lm returns zero tokens for a large fraction of the long-input prompts at every concurrency level, the same padded-cache problem the M1 Pro experiment isolated, scaled to a benchmark. vllm-metal serves all 100 prompts at all three concurrency levels.
+
+## Where this lands in the ecosystem
+
+All three MLX-based stacks (mlx_lm, omlx, vllm-mlx) converge at the same MLX call: `mx.fast.scaled_dot_product_attention`, which requires uniform `T` and has no `cu_seqlens` argument. vllm-mlx is worth pointing out: vLLM's varlen scheduler runs upstream, but a `_left_pad_prompts()` step at the kernel boundary repacks into 4D padded form. The scheduler is doing varlen bookkeeping the kernel can't use. llama.cpp takes a third path: its Metal flash-attention kernel supports varlen via an explicit attention mask over per-stream KV ring buffers, with `seq_id` deciding which tokens attend to which cells. vllm-metal is the only stack pairing `cu_seqlens`-based varlen with a flat 3D KV layout.
+
+| Engine | Varlen | KV layout |
+|---|---|---|
+| mlx_lm | no | 4D padded `[B, H, T, D]` |
+| omlx | no | 4D padded `[B, H, T, D]` |
+| vllm-mlx | no | 4D padded `[B, H, T, D]` |
+| llama.cpp | yes (mask-based) | 3D per-stream ring buffer |
+| vllm-metal | yes (`cu_seqlens`) | 3D flat `[total_tokens, H, D]` |
+
+Of the five stacks audited, vllm-metal is the only one that pairs `cu_seqlens`-based varlen with a flat 3D KV layout. The other two patterns (MLX-family 4D padded; llama.cpp 3D ring buffer + mask) coexist on Apple Silicon today, and the data-structure choice each makes is what shows up at concurrency in the benchmark above.
 
