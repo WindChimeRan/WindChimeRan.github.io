@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Why vllm-metal Avoids mlx_lm's KV Cache Cliff on Smaller Macs"
+title: "vllm-metal vs mlx_lm: Contiguous vs Paged Varlen KV Cache"
 date: 2026-05-20 00:00:00-0000
 description: "Why we replaced mlx_lm's attention layer with paged varlen attention driven by the vLLM scheduler, and the deployment cliff that motivates it."
 tags: [LLM, inference, Apple Silicon, systems, vllm-metal]
