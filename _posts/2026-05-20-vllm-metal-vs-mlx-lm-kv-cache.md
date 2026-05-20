@@ -44,7 +44,7 @@ The cliff is a property of the cache shape.
   <img src="/assets/img/kv_cache_contiguous_vs_paged_varlen.png" alt="Contiguous padded KV cache vs flat varlen layout with paged blocks" style="max-width: 650px; width: 100%; height: auto;" />
 </div>
 
-**Speculative decoding falls out for free.** After each verification step, every sequence has a different accepted-prefix length. The post-verify batch is intrinsically ragged. With paged blocks and `cu_seqlens`, the next iteration is just a different `cu_seqlens` slice over the same paged store. With a 4D padded cache, every step has to re-pad to the new ragged shape, and the data structure stops earning its keep. Making it work anyway is possible, but the bookkeeping is involved enough to be its own paper (my *[Batch Speculative Decoding Done Right](https://arxiv.org/pdf/2510.22876)*).
+**Speculative decoding falls out for free.** After each verification step, every sequence has a different accepted-prefix length. The post-verify batch is intrinsically ragged. With paged blocks and `cu_seqlens`, the next iteration is just a different `cu_seqlens` slice over the same paged store. With a 4D padded cache, every step has to re-pad to the new ragged shape, and the data structure stops earning its keep. Making it work anyway is possible, but the bookkeeping is involved enough to be its own paper (i.e., *[Batch Speculative Decoding Done Right](https://arxiv.org/pdf/2510.22876)*).
 
 ## On the benchmark
 
