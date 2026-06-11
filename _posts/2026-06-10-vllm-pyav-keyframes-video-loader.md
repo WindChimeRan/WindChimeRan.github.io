@@ -182,6 +182,90 @@ Accuracy is the other side of the trade. NExTQA, scene-content QA, is unchanged 
 
 The decode savings apply to every clip by construction; the accuracy cost lands only where the prompt needs inter-keyframe information. A classification job in the eBay mold, one-token answers about what the clip shows, matches the NExTQA column. Motion reasoning matches the `action_antonym` column and should stay on a lossless loader.
 
+## A case study in quoting out of context
+
+Chinese has an idiom for this failure mode: 断章取义, judging a passage by a fragment taken out of context. Keyframe sampling does it to video. The two CLEVRER-based MVBench subtasks that drop 36.4 points each, `moving_attribute` and `object_existence`, are the extreme case: all 26 CLEVRER clips we probed carry exactly one keyframe, at frame 0, so `pyav_keyframes` returns the opening frame duplicated to fill the budget. The model is asked about a five-second video and shown its first instant, `num_frames` times.
+
+The item below is a real `object_existence` row. The question asks about a purple sphere; the sphere rolls in at t≈2.0 s, so the answer is yes, and frame 0 cannot know that. Drag the budget down: uniform sampling loses its glimpses one by one and collapses to frame 0 at `num_frames = 1`; the keyframe row sits at frame 0 from the start. On encodes like this, `num_frames` stops being the knob that matters. The keyframe count is, and it is a property of the file, not of the request.
+
+{% raw %}
+<style>
+.case-widget{
+  --cw-ink:var(--global-text-color, #1a1a2e);
+  --cw-muted:var(--global-text-color-light, #5a5a72);
+  --cw-line:var(--global-divider-color, #e4e4ec);
+  --cw-yes:#009988; --cw-no:#CC3311;
+  background:var(--global-card-bg-color, #ffffff);
+  border:1.5px solid var(--cw-line); border-radius:12px;
+  padding:16px 18px; margin:1.5em 0; color:var(--cw-ink);
+}
+html[data-theme="dark"] .case-widget{ --cw-no:#e85c41; }
+.case-widget .cw-q{font-size:1rem;margin:0 0 .3em}
+.case-widget .cw-meta{font-size:.85rem;color:var(--cw-muted);margin:0 0 .9em}
+.case-widget .cw-opt{display:inline-block;border:1.5px solid var(--cw-line);border-radius:6px;padding:1px 8px;margin-left:6px;font-size:.88rem}
+.case-widget .cw-opt.truth{border-color:var(--cw-yes);color:var(--cw-yes);font-weight:700}
+.case-widget label{font-size:.9rem}
+.case-widget input[type=range]{vertical-align:middle;width:160px}
+.case-widget .cw-h{font-weight:700;margin:1.1em 0 .35em}
+.case-widget .cw-h code{font-weight:400}
+.case-widget .cw-row{display:flex;flex-wrap:wrap;gap:3px}
+.case-widget .cw-row img{width:var(--tw,12%);min-width:42px;max-width:240px;border-radius:4px;display:block}
+.case-widget .cw-row img.vis{outline:2.5px solid var(--cw-yes);outline-offset:-2px}
+.case-widget .cw-verdict{font-size:.92rem;color:var(--cw-muted);margin:.45em 0 0}
+.case-widget .cw-verdict b.yes{color:var(--cw-yes)}
+.case-widget .cw-verdict b.no{color:var(--cw-no)}
+</style>
+<div class="case-widget">
+  <p class="cw-q">“Are there any purple spheres that enter the scene?”
+    <span class="cw-opt">not sure</span><span class="cw-opt truth">yes ✓</span><span class="cw-opt">no</span></p>
+  <p class="cw-meta">MVBench <code>object_existence</code>, CLEVRER clip <code>video_12845.mp4</code>: 128 frames, 5.12 s, one keyframe (frame 0). The purple sphere enters at t≈2.0 s.</p>
+  <label>budget (<code>num_frames</code>): <input type="range" id="csb" min="0" max="4" value="4"> <b id="csbv">16</b></label>
+  <div class="cw-h">lossless uniform sampling</div>
+  <div class="cw-row" id="csuni"></div>
+  <div class="cw-verdict" id="csuniv"></div>
+  <div class="cw-h"><code>pyav_keyframes</code> (n_kf = 1 → frame 0, duplicated)</div>
+  <div class="cw-row" id="cskf"></div>
+  <div class="cw-verdict" id="cskfv"></div>
+</div>
+<script>
+(function(){
+const BUDGETS=[1,2,4,8,16];
+const PICKS={1:[0],2:[0,127],4:[0,42,85,127],8:[0,18,36,54,73,91,109,127],16:[0,8,17,25,34,42,51,59,68,76,85,93,102,110,119,127]};
+const VIS=48, BASE='/assets/img/case_video_12845/';
+const widget=document.querySelector('.case-widget');
+function row(host,idxs){
+  const el=document.getElementById(host); el.innerHTML='';
+  idxs.forEach(i=>{
+    const im=document.createElement('img');
+    im.src=BASE+'f'+i+'.webp';
+    im.alt='frame at t='+(i/25).toFixed(1)+'s';
+    if(i>=VIS) im.className='vis';
+    el.appendChild(im);
+  });
+  return idxs.filter(i=>i>=VIS).length;
+}
+function verdict(host,n,k){
+  document.getElementById(host).innerHTML=
+    'purple sphere visible in <b>'+n+'</b> of '+k+' frames → evidence supports '+
+    (n>0?'<b class="yes">“yes”</b>':'<b class="no">“no”</b>');
+}
+function render(){
+  const k=BUDGETS[+document.getElementById('csb').value];
+  document.getElementById('csbv').textContent=k;
+  widget.style.setProperty('--tw', k===16 ? '12%' : '24%');
+  verdict('csuniv',row('csuni',PICKS[k]),k);
+  verdict('cskfv',row('cskf',Array(k).fill(0)),k);
+}
+document.getElementById('csb').addEventListener('input',render);
+render();
+})();
+</script>
+{% endraw %}
+
+<p align="center"><em>Frames from the CLEVRER validation set, via MVBench. The verdict lines describe the visible evidence in each sampled frame set; no model inference was run for this figure.</em></p>
+
+`object_existence` is 200 rows like this one; this mechanism is what its −36.4 pt aggregates.
+
 ## Using it
 
 The loader is opt-in; nothing changes unless a run selects the `pyav_keyframes` backend. Until the PR lands, the same loader ships as a single-file drop-in (`pyav_keyframes_v2`) in the experiment repo: importing the module registers it with vLLM's loader registry, and the README has the exact `LLM(...)` configuration.
