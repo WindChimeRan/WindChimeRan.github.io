@@ -40,13 +40,107 @@ The cliff is a property of the cache shape.
 
 **vllm-metal.** The KV cache is paged: KV memory is sliced into fixed-size blocks indexed by a per-sequence block table, the way upstream vLLM does it. Inside the attention step, tokens from all sequences are laid out on a single flat token dimension, with `cu_seqlens` marking sequence boundaries. The scheduler is free to pack prefill chunks and decode tokens into the same forward pass. This is real continuous batching, not phase-separated pseudo-batching. Per-step compute scales as the total of real tokens, $\sum_b L_b$, so the 90,000 vs 35,010 imbalance from the case study collapses to 35,010. MLX's stock SDPA accepts neither `cu_seqlens` nor a block table, so the attention path is a hand-written Metal kernel.
 
-<div style="display: flex; justify-content: center;">
-  <img src="/assets/img/kv_cache_contiguous_vs_paged_varlen.png" alt="Contiguous padded KV cache vs flat varlen layout with paged blocks" style="max-width: 650px; width: 100%; height: auto;" />
+The widget below shows the case-study batch as each layout stores it.
+
+{% raw %}
+<style>
+.kvw{
+  --kvw-s1:#4477AA; --kvw-s2:#009988; --kvw-s3:#EE7733;
+  --kvw-pad:#dcdee6;
+  --kvw-ink:var(--global-text-color, #1a1a2e);
+  --kvw-muted:var(--global-text-color-light, #5a5a72);
+  --kvw-line:var(--global-divider-color, #e4e4ec);
+  --kvw-out-bg:#eef0f5;
+  background:var(--global-card-bg-color, #ffffff);
+  border:1.5px solid var(--kvw-line); border-radius:12px;
+  padding:16px 18px; margin:1.5em 0 .6em; color:var(--kvw-ink);
+}
+html[data-theme="dark"] .kvw{ --kvw-pad:#44444f; --kvw-out-bg:#2b2b33; }
+.kvw .ctl{display:flex;gap:4px 20px;flex-wrap:wrap}
+.kvw .ctl label{font-size:.88rem;white-space:nowrap}
+.kvw input[type=range]{vertical-align:middle;width:100px}
+.kvw .kvw-h{font-weight:700;margin:1.15em 0 .15em}
+.kvw .kvw-h code{font-weight:400}
+.kvw .hint{font-size:.85rem;color:var(--kvw-muted);margin:.1em 0 .55em}
+.kvw .lane{display:grid;grid-template-columns:72px minmax(0,1fr);gap:7px 10px;align-items:center}
+.kvw .lab{font-size:.78rem;font-weight:600;text-align:right;color:var(--kvw-muted);white-space:nowrap}
+.kvw .kvbar{display:flex;height:24px;border-radius:4px;overflow:hidden}
+.kvw .seg{flex-basis:0}
+.kvw .seg+.seg{border-left:1.5px solid var(--global-card-bg-color,#fff)}
+.kvw .formula{font:.82rem ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--kvw-out-bg);
+  border-radius:6px;padding:6px 10px;margin:.55em 0 0;overflow-x:auto}
+.kvw .formula b{font-size:.9rem}
+.kvw .stat{font-size:.92rem;margin:1.05em 0 0;color:var(--kvw-muted)}
+.kvw .stat b{color:var(--kvw-ink)}
+</style>
+<div class="kvw">
+  <div class="ctl">
+    <label>Seq 1: <input type="range" id="kvw1" min="0" max="8" value="8"> <b id="kvw1v">30,000</b></label>
+    <label>Seq 2: <input type="range" id="kvw2" min="0" max="8" value="5"> <b id="kvw2v">5,000</b></label>
+    <label>Seq 3: <input type="range" id="kvw3" min="0" max="8" value="0"> <b id="kvw3v">10</b></label>
+  </div>
+  <div class="hint">defaults = the case-study batch: 30,000 + 5,000 + 10 input tokens</div>
+  <div class="kvw-h">mlx_lm — contiguous padded cache, shape <code>[B, H, T, D]</code></div>
+  <div class="hint">every sequence left-padded to the longest (gray = padding); attention runs over the full rectangle</div>
+  <div class="lane" id="kvwpad"></div>
+  <div class="formula" id="kvwalloc"></div>
+  <div class="kvw-h">vllm-metal — flat varlen cache, shape <code>[total_tokens, H, D]</code></div>
+  <div class="hint">same batch packed end to end on one token axis; <code>cu_seqlens</code> marks the boundaries</div>
+  <div class="lane" id="kvwflat"></div>
+  <div class="formula" id="kvwflatinfo"></div>
+  <div class="stat" id="kvwstat"></div>
 </div>
+<script>
+(function(){
+const S=[10,100,500,1000,2000,5000,10000,20000,30000];
+const C=['var(--kvw-s1)','var(--kvw-s2)','var(--kvw-s3)'];
+const $=id=>document.getElementById(id);
+const fmt=n=>n.toLocaleString('en-US');
+function seg(len,color,isPad){
+  const d=document.createElement('div');
+  d.className='seg'; d.style.background=color; d.style.flexGrow=len;
+  if(!isPad) d.style.minWidth='5px';
+  return d;
+}
+function render(){
+  const l=[1,2,3].map(i=>S[+$('kvw'+i).value]);
+  [1,2,3].forEach(i=>$('kvw'+i+'v').textContent=fmt(l[i-1]));
+  const tmax=Math.max(...l), alloc=3*tmax, total=l[0]+l[1]+l[2];
+  const pad=$('kvwpad'); pad.innerHTML='';
+  l.forEach((len,i)=>{
+    const lab=document.createElement('div');
+    lab.className='lab'; lab.textContent='Seq '+(i+1);
+    const tr=document.createElement('div');
+    const row=document.createElement('div');
+    row.className='kvbar'; row.style.width=(100*tmax/total)+'%';
+    if(tmax-len>0) row.appendChild(seg(tmax-len,'var(--kvw-pad)',true));
+    row.appendChild(seg(len,C[i],false));
+    tr.appendChild(row); pad.appendChild(lab); pad.appendChild(tr);
+  });
+  $('kvwalloc').innerHTML='allocated: 3 × '+fmt(tmax)+' = <b>'+fmt(alloc)+'</b> KV slots';
+  const flat=$('kvwflat'); flat.innerHTML='';
+  const flab=document.createElement('div'); flab.className='lab'; flab.textContent='packed';
+  const ftr=document.createElement('div');
+  const frow=document.createElement('div'); frow.className='kvbar'; frow.style.width='100%';
+  l.forEach((len,i)=>frow.appendChild(seg(len,C[i],false)));
+  ftr.appendChild(frow); flat.appendChild(flab); flat.appendChild(ftr);
+  const cu=[0,l[0],l[0]+l[1],total];
+  $('kvwflatinfo').innerHTML='cu_seqlens = ['+cu.join(', ')+']<br>stored: '+
+    l.map(fmt).join(' + ')+' = <b>'+fmt(total)+'</b> tokens';
+  const waste=Math.round(100*(1-total/alloc)), ratio=alloc/total;
+  $('kvwstat').innerHTML = waste<=5
+    ? 'balanced lengths: the rectangle wastes only <b>'+waste+'%</b> — the gap opens when one sequence is much longer than the rest'
+    : 'padding is <b>'+waste+'%</b> of the rectangle; each attention step touches <b>'+ratio.toFixed(1)+'×</b> the KV rows the packed strip does';
+}
+[1,2,3].forEach(i=>$('kvw'+i).addEventListener('input',render));
+render();
+})();
+</script>
+{% endraw %}
 
-<div style="margin-top: 1.5em;"></div>
+<p align="center"><em>The case-study batch as each cache layout stores it. Drag a length: the padded rectangle re-pads everything to the new longest sequence; the packed strip grows only by the tokens actually added.</em></p>
 
-**Speculative decoding falls out for free.** After each verification step, every sequence has a different accepted-prefix length. The post-verify batch is intrinsically ragged. With paged blocks and `cu_seqlens`, the next iteration is just a different `cu_seqlens` slice over the same paged store. With a 4D padded cache, every step has to re-pad to the new ragged shape, and the data structure stops earning its keep. Making it work anyway is possible, but the bookkeeping is involved enough to be its own paper (i.e., *[Batch Speculative Decoding Done Right](https://arxiv.org/pdf/2510.22876)*).
+**Speculative decoding falls out for free.** Verification scores each sequence's draft tokens in one forward pass: k + 1 query tokens per sequence, with k varying across the batch, so the batch is ragged on the query axis, not just in KV lengths. To a `cu_seqlens` kernel this is just another batch. Upstream vLLM's FlashAttention backend runs prefill, decode, and verification through the same varlen attention call; drafts merely lengthen each request's query span, and the spec-specific code only picks which logits to verify. After rejection, the diverging accepted prefixes are just new sequence lengths over the same paged store. A 4D padded cache has to re-pad both axes every step, and making that work is involved enough to be its own paper (*[Batch Speculative Decoding Done Right](https://arxiv.org/pdf/2510.22876)*). vllm-metal has not shipped speculative decoding yet; the layout means it will arrive with no new kernel, just a different `cu_seqlens`.
 
 ## On the benchmark
 
@@ -56,7 +150,31 @@ The cliff is a property of the cache shape.
 
 <p align="center"><em>Output throughput (Qwen3-0.6B BF16) on SiliconBench's chat and agent splits at concurrency 1, 8, 16. Hatched mlx_lm bars on the agent split mark partial-success runs (X/100 prompts returned a non-empty completion).</em></p>
 
+{% raw %}
+<style>
+.bench-table{overflow-x:auto;margin:0 0 1.4em}
+.bench-table table{
+  width:100%;border-collapse:collapse;
+  font-size:.92rem;line-height:1.4;
+  font-variant-numeric:tabular-nums;
+  border-top:2px solid var(--global-text-color,#1a1a2e);
+  border-bottom:2px solid var(--global-text-color,#1a1a2e);
+}
+.bench-table th{
+  font-weight:600;padding:.45em .75em;white-space:nowrap;
+  border-bottom:1.5px solid var(--global-text-color,#1a1a2e);
+}
+.bench-table td{padding:.4em .75em}
+.bench-table th:first-child,.bench-table td:first-child{padding-left:.25em}
+.bench-table th:last-child,.bench-table td:last-child{padding-right:.25em}
+.bench-table td:first-child{font-weight:600}
+.bench-table tbody tr:nth-child(3) td{border-bottom:1px solid var(--global-divider-color,#e4e4ec)}
+</style>
+{% endraw %}
+
 **chat split** (~1K input, max output 256)
+
+<div class="bench-table" markdown="1">
 
 | Engine | c | Success | TTFT p50 (ms) | Throughput (tok/s) | Wall (s) |
 |---|---:|---:|---:|---:|---:|
@@ -67,9 +185,11 @@ The cliff is a property of the cache shape.
 | vllm-metal | 8 | 100/100 | 133 | 145.5 | 31.5 |
 | vllm-metal | 16 | 100/100 | 183 | 190.8 | 24.1 |
 
-<div style="margin-top: 1.5em;"></div>
+</div>
 
 **agent split** (~4K input, max output 256)
+
+<div class="bench-table" markdown="1">
 
 | Engine | c | Success | TTFT p50 (ms) | Throughput (tok/s) | Wall (s) |
 |---|---:|---:|---:|---:|---:|
@@ -80,7 +200,7 @@ The cliff is a property of the cache shape.
 | vllm-metal | 8 | 100/100 | 612 | 54.8 | 107.2 |
 | vllm-metal | 16 | 100/100 | 736 | 73.8 | 80.4 |
 
-<div style="margin-top: 1.5em;"></div>
+</div>
 
 SiliconBench is our benchmark harness for local LLM inference engines on Apple Silicon. It sends 100 prompts to each engine's OpenAI-compatible API at three concurrency levels: c=1, 8, and 16, where c is the number of in-flight requests. The chat split is single-turn; the agent split is multi-turn material.
 
@@ -90,9 +210,11 @@ The agent split also exposes a reliability cliff. mlx_lm returns zero tokens for
 
 ## Where this lands in the ecosystem
 
-This is also why simply "using vLLM's scheduler" is not enough on Apple Silicon: the varlen structure has to survive all the way down to the kernel boundary.
+vLLM's scheduler is the easy half: it emits a varlen schedule (`cu_seqlens` and block tables), but the schedule pays off only if that structure survives all the way down to the attention kernel. One repack anywhere in between and you are back to padded compute.
 
-All three MLX-based stacks (mlx_lm, omlx, vllm-mlx) converge at the same MLX call: `mx.fast.scaled_dot_product_attention`, which requires uniform `T` and has no `cu_seqlens` argument. vllm-mlx is worth pointing out: vLLM's varlen scheduler runs upstream, but a `_left_pad_prompts()` step at the kernel boundary repacks into 4D padded form. The scheduler is doing varlen bookkeeping the kernel can't use. llama.cpp takes a third path: its Metal flash-attention kernel supports varlen via an explicit attention mask over per-stream KV ring buffers, with `seq_id` deciding which tokens attend to which cells. vllm-metal is the only stack pairing `cu_seqlens`-based varlen with a flat 3D KV layout.
+All three MLX-based stacks (mlx_lm, omlx, vllm-mlx) converge at the same MLX call: `mx.fast.scaled_dot_product_attention`, which requires uniform `T` and has no `cu_seqlens` argument. vllm-mlx is worth pointing out: vLLM's varlen scheduler runs upstream, but a `_left_pad_prompts()` step at the kernel boundary repacks into 4D padded form. The scheduler is doing varlen bookkeeping the kernel can't use. llama.cpp takes a third path: its Metal flash-attention kernel supports varlen via an explicit attention mask over per-stream KV ring buffers, with `seq_id` deciding which tokens attend to which cells.
+
+<div class="bench-table" markdown="1">
 
 | Engine | Varlen | KV layout |
 |---|---|---|
@@ -102,7 +224,7 @@ All three MLX-based stacks (mlx_lm, omlx, vllm-mlx) converge at the same MLX cal
 | llama.cpp | yes (mask-based) | 3D per-stream ring buffer |
 | vllm-metal | yes (`cu_seqlens`) | 3D flat `[total_tokens, H, D]` |
 
-<div style="margin-top: 1.5em;"></div>
+</div>
 
 Of the five stacks audited, vllm-metal is the only one that pairs `cu_seqlens`-based varlen with a flat 3D KV layout. On NVIDIA this pairing is the de facto serving pattern. Both vLLM and SGLang use it in production. Apple Silicon hasn't shipped the same pattern until recently: vllm-metal 0.2.0 (April 2026) is the first end-to-end serving framework on Apple Silicon to ship paged varlen attention. The data-structure choice each stack makes is what shows up at concurrency in the benchmark above.
 
