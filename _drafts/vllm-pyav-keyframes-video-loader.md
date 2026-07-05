@@ -1,7 +1,6 @@
 ---
 layout: post
 title: "Keyframe-Only Video Loading in vLLM: The Accuracy-Throughput Trade"
-date: 2026-06-10 10:00:00-0000
 description: "An opt-in lossy video loader for vLLM that decodes only I-frames: 1.77× end-to-end on offline video classification, −0.1 pt on NExTQA, −11.3 pt on MVBench."
 tags: [LLM, inference, video, multimodal, vllm]
 categories: [research]
