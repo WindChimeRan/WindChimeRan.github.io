@@ -38,7 +38,9 @@
     {{ title }}
   {% endif %}
 </title>
-<meta name="author" content="{{ author_name }}">
+{% unless page.author == false %}
+  <meta name="author" content="{{ author_name }}">
+{% endunless %}
 <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
 {% if page.keywords or site.keywords %}
   <meta name="keywords" content="{% if page.keywords %}{{ page.keywords }}{% else %}{{ site.keywords }}{% endif %}">
@@ -70,13 +72,13 @@
   {% if page.og_image or site.og_image %}
     <meta name="twitter:image" content="{% if page.og_image %}{{ page.og_image }}{% else %}{{ site.og_image }}{% endif %}">
   {% endif %}
-  {% if site.x_username %}
+  {% if site.x_username and page.author != false %}
     <meta name="twitter:site" content="@{{ site.x_username }}">
     <meta name="twitter:creator" content="@{{ site.x_username }}">
   {% endif %}
 {% endif %}
 
-{% if site.serve_schema_org %}
+{% if site.serve_schema_org and page.author != false %}
   <!-- Schema.org -->
   {% comment %} Social links generator for "sameAs schema" {% endcomment %}
   {% assign sameaslinks = '' | split: ',' %}
